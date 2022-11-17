@@ -1,3 +1,5 @@
+# generation of random jobshop / flowshop benchmarks inspired by http://mistic.heig-vd.ch/taillard/articles.dir/Taillard1993EJOR.pdf
+
 import sys
 import random
 import json
