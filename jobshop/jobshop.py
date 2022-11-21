@@ -5,8 +5,10 @@ import random
 import json
 
 
-def generate_instance(jobs, machines, horizon, seed, flow=False):
+def generate_instance(jobs, machines, horizon, seed=0, flow=False):
   random.seed(seed)
+  maxtime = horizon//jobs
+
 
   duration=[[0] * machines for i in range(0,jobs)]
   for i in range(0,jobs):
@@ -47,7 +49,6 @@ if __name__ =="__main__":
   operations = jobs*machines
   horizon = int(sys.argv[3])
   assert(horizon>=jobs)
-  maxtime = horizon//jobs
   seed = int(sys.argv[4])
   flow = sys.argv[5] in ["True","true","1", "yes"]
   print("Generating job shop instance for",jobs,"jobs,",machines,"machines and",horizon,"time horizon, with seed",seed,"with flow precedence" if flow else "")
