@@ -1,0 +1,1 @@
+from .jobshop.jobshop import generate_instance as generate_jobshop
