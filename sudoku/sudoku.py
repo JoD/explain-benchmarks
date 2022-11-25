@@ -47,8 +47,8 @@ def model_unsat_sudoku(dims=(9, 9), total_errors=1):
   num_errors = 0
   while(num_errors < total_errors and num_taken < len(remaining_unraveled_indices)):
     unraveld_indices = np.unravel_index([remaining_indices[num_taken]], given.shape)
-
-    val = np.random.choice(set(range(1, 10)) - set({uniq_solution[unraveld_indices]}), replace=False, size=1)
+    remaining_values = np.array([i for i in range(1, 10) if i not in uniq_solution[unraveld_indices]])
+    val = np.random.choice(remaining_values, replace=False, size=1)
     given[unraveld_indices] = val
 
     num_taken += 1
@@ -108,5 +108,5 @@ def model_solve_sudoku(dims=(9, 9)):
 
   return given
 
-
-print(model_solve_sudoku())
+if __name__ == "__main__":
+  print(model_unsat_sudoku(total_errors=5))
