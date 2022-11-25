@@ -2,16 +2,19 @@ import cpmpy as cp
 import numpy as np
 
 
-def model_unsat_sudoku(dims=(9, 9), total_errors=1, total_extra_givens=1):
-  assert dims[0] == dims[1], f"Sudoku should be modeled as a square nrows, ncols=({dims[0]}, {dims[1]})"
+def model_unsat_sudoku(dim=9, total_errors=1, total_extra_givens=1, seed=0):
+  # assert dims[0] == dims[1], f"Sudoku should be modeled as a square nrows, ncols=({dims[0]}, {dims[1]})"
+  np.random.seed(seed)
+
   e = 0
 
-  puzzle = cp.intvar(lb=1, ub=dims[0], shape=dims)
-  given = np.zeros(shape=dims, dtype=int)
-  indices_to_update = np.random.choice(dims[1]*dims[0], replace=False, size=dims[0])
+  puzzle = cp.intvar(lb=1, ub=dim, shape=(dim,dim))
+  given = np.zeros(shape=(dim,dim), dtype=int)
+
+  indices_to_update = np.random.choice(dim*dim, replace=False, size=dim)
   indices = np.unravel_index(indices_to_update, given.shape)
 
-  given[indices] = np.arange(1, dims[0] + 1, dtype=int)
+  given[indices] = np.arange(1, dim+1, dtype=int)
 
   model = cp.Model(
       # Constraints on rows and columns
@@ -20,9 +23,9 @@ def model_unsat_sudoku(dims=(9, 9), total_errors=1, total_extra_givens=1):
       [cp.AllDifferent(col) for col in puzzle.T], # numpy's Transpose
   )
   # Constraints on blocks
-  n = int(dims[0] ** (1/2))
-  for i in range(0,dims[0], n):
-      for j in range(0,dims[1], n):
+  n = int(dim ** (1/2))
+  for i in range(0,dim, n):
+      for j in range(0,dim, n):
           model += cp.AllDifferent(puzzle[i:i+n, j:j+n]) # python's indexing
 
   nsol = model.solveAll(solution_limit=2)
@@ -30,7 +33,7 @@ def model_unsat_sudoku(dims=(9, 9), total_errors=1, total_extra_givens=1):
 
   givens_cons = (puzzle == uniq_solution)
 
-  remaining_unraveled_indices = list(set(range(dims[1]*dims[0])) - set(indices_to_update))
+  remaining_unraveled_indices = list(set(range(dim*dim)) - set(indices_to_update))
   remaining_indices = np.random.choice(remaining_unraveled_indices, size=len(remaining_unraveled_indices), replace=False)
 
   num_taken = 0
@@ -52,14 +55,14 @@ def model_unsat_sudoku(dims=(9, 9), total_errors=1, total_extra_givens=1):
   num_errors = 0
   while(num_errors < total_errors and num_taken < len(remaining_unraveled_indices)):
     unraveld_indices = np.unravel_index([remaining_indices[num_taken]], given.shape)
-    remaining_values = np.array([i for i in range(1, dims[0]+1) if i not in uniq_solution[unraveld_indices]])
+    remaining_values = np.array([i for i in range(1, dim+1) if i not in uniq_solution[unraveld_indices]])
     val = np.random.choice(remaining_values, replace=False, size=1)
     given[unraveld_indices] = val
 
     num_taken += 1
     num_errors += 1
 
-  return given
+  return {"givens" :given}
 
 def model_solve_sudoku(dims=(9, 9)):
   """Generates a Sudoku puzzle for given dimensions, defaults to a 9x9 Sudoku
