@@ -2,7 +2,7 @@ import cpmpy as cp
 import numpy as np
 
 
-def model_unsat_sudoku(dims=(9, 9), total_errors=1):
+def model_unsat_sudoku(dims=(9, 9), total_errors=1, total_extra_givens=1):
   assert dims[0] == dims[1], f"Sudoku should be modeled as a square nrows, ncols=({dims[0]}, {dims[1]})"
   e = 0
 
@@ -34,13 +34,18 @@ def model_unsat_sudoku(dims=(9, 9), total_errors=1):
   remaining_indices = np.random.choice(remaining_unraveled_indices, size=len(remaining_unraveled_indices), replace=False)
 
   num_taken = 0
+  num_extra_givens = 0
 
-  while(nsol > 1  and num_taken < len(remaining_unraveled_indices)):
+  while(nsol > 1  and num_taken < len(remaining_unraveled_indices) and num_extra_givens < total_extra_givens):
     unraveld_indices = np.unravel_index([remaining_indices[num_taken]], given.shape)
     con = givens_cons[unraveld_indices]
     given[unraveld_indices] = uniq_solution[unraveld_indices]
     model += con
     nsol = model.solveAll(solution_limit=2)
+
+    if nsol == 1:
+      num_extra_givens += 1
+
     num_taken += 1
 
   ## adding some errors
@@ -109,4 +114,4 @@ def model_solve_sudoku(dims=(9, 9)):
   return given
 
 if __name__ == "__main__":
-  print(model_unsat_sudoku(total_errors=5))
+  print(model_unsat_sudoku(total_errors=5, total_extra_givens=5))
