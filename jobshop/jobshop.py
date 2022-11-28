@@ -5,6 +5,38 @@ import random
 import json
 
 
+def generate_unsat_instance(jobs, machines, horizon, seed=0, flow=False):
+  """Allows for a reduced maximum time with respect to the
+  horizon and the number of jobs.
+  """
+  random.seed(seed)
+  maxtime = max(horizon//jobs, 1)
+
+  duration=[[0] * machines for _ in range(0,jobs)]
+  for i in range(0,jobs):
+    for j in range(0,machines):
+      duration[i][j] = random.randint(1,maxtime)
+  # print("duration",duration)
+
+  order = [list(range(0,machines)) for i in range(0,jobs)]
+  if not flow:
+    for i in range(0,jobs):
+      random.shuffle(order[i])
+  # print("order",order)
+
+  precedence = [[(i,j) for j in order[i]] for i in range(0,jobs)]
+  # print("precedence",precedence)
+
+  return {
+    "n_jobs": jobs,
+    "task_to_mach": order,
+    "duration": duration,
+    "precedence": precedence,
+    "horizon": horizon,
+    "name": ("flowshop" if flow else "jobshop")+"_"+str(jobs)+"_"+str(machines)+"_"+str(horizon)+"_"+str(seed),
+  }
+
+
 def generate_instance(jobs, machines, horizon, seed=0, flow=False):
   random.seed(seed)
   maxtime = horizon//jobs
