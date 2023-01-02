@@ -16,7 +16,11 @@ def difficult_conflict_at(row, col, given, uniq_solution):
         # same row or same col
         if v in given[row,:] or v in given[:, col]:
             continue
-        if v in given[row:row+n, col:col+n]:
+        # same block
+        top_left_row = (row//n)*n
+        top_left_col = (col//n)*n
+
+        if v in given[top_left_row:top_left_row+n, top_left_col:top_left_col+n]:
             continue
         candidate_values.append(v)
 
@@ -119,7 +123,6 @@ def model_unsat_sudoku(dim=9, total_errors=1, total_extra_givens=1, seed=0):
         
         val = np.random.choice(remaining_values, replace=False, size=1)
         given[unraveld_indices] = val
-        print(unraveld_indices, val)
 
         num_taken += 1
         num_errors += 1
