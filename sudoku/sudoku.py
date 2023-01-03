@@ -30,7 +30,7 @@ def difficult_conflicts(given, uniq_solution):
     """Generate candidate inconsistencies for each position.
     Filter out the too obvious inconsistencies."""
     position_conflicts = {}
-    
+
     # 
     n = int(len(given) ** (0.5))
     for i in range(len(given)):
@@ -44,14 +44,15 @@ def difficult_conflicts(given, uniq_solution):
                 # same row or same col
                 if v in given[i,:] or v in given[:, j]:
                     continue
-                if v in given[i:i+n, j:j+n]:
+
+                top_left_row = (i//n)*n
+                top_left_col = (j//n)*n
+                if v in given[top_left_row:top_left_row+n, top_left_col:top_left_col+n]:
                     continue
                 candidate_values.append(v)
-            
+
             position_conflicts[(i, j)] = candidate_values
-    
-            print(position_conflicts[(i, j)])
-    
+
     return position_conflicts
 
 
