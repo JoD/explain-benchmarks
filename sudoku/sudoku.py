@@ -1,6 +1,241 @@
 import cpmpy as cp
 import numpy as np
 
+def update_costs_split_value(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=None):
+    from CSPExplain.subset.weighted import WeightedOCUS
+    from CSPExplain.subset.mus import SMUS
+    from CSPExplain.subset.grow import CorrSubsets, GreedyGrow
+
+    n = int(len(unsat_given) ** (0.5))
+    if assigned_cell:
+        assigned_i, assigned_j = assigned_cell
+
+        all_ij_comb = set()
+        for col in range(len(unsat_given)):
+            ## all vars on same row
+            all_ij_comb.add((assigned_i, col))
+            ## all vars on same col
+            all_ij_comb.add((col, assigned_j))
+
+        top_left_row = (assigned_i//n)*n
+        top_left_col = (assigned_j//n)*n
+
+        for row in range(n):
+            for col in range(n):
+                all_ij_comb.add((top_left_row+row, top_left_col+col))
+
+    print("\n\n")
+    for row in range(len(unsat_given)):
+        for col in range(len(unsat_given[0])):
+            if unsat_given[row, col] != 0:
+                continue
+
+            if assigned_cell and (row, col) not in all_ij_comb:
+                continue
+
+            for v in range(1, len(unsat_given)+1):
+                print((row, col, v))
+                if v == uniq_solution[row, col]:
+                    continue
+
+                # introducing the inconsistency
+                cpm_cons = cells[row, col] == v
+                ind = cp.boolvar(name=f"->{cpm_cons}")
+
+                sat_solver += ind.implies(cpm_cons)
+
+                assum_dict ={**base_assum_dict, **{ind:cpm_cons}}
+                                # same row or same col
+                top_left_row = (row//n)*n
+                top_left_col = (col//n)*n
+                if v in unsat_given[row,:] or v in unsat_given[:, col] or v in unsat_given[top_left_row:top_left_row+n, top_left_col:top_left_col+n]:
+                    ocus_costs[(row, col, v)] = (ind, cpm_cons, None, 22)
+                    continue
+
+                smus_algo = WeightedOCUS(
+                    sat_solver=sat_solver,
+                    assum_dict=assum_dict,
+                    weights= weights + [1], grow_class=CorrSubsets, sub_grow_algo=GreedyGrow,
+                    constraint=[ind == 1])
+
+                smus = smus_algo.get_subset()
+                smus_cons = [assum_dict[c] for c in smus]
+                ocus_cost = sum(20 if isinstance(c, cp.AllDifferent) else 1 for c in smus_cons)
+                ocus_costs[(row, col, v)] = (ind, cpm_cons, smus_cons, ocus_cost)
+    print("\n\n")
+
+
+def update_costs_split_var(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=None):
+    from CSPExplain.subset.weighted import WeightedOCUS
+    from CSPExplain.subset.mus import SMUS
+    from CSPExplain.subset.grow import CorrSubsets, GreedyGrow
+    
+    n = int(len(unsat_given) ** (0.5))
+    if assigned_cell:
+        assigned_i, assigned_j = assigned_cell
+        
+        all_ij_comb = set()
+        for col in range(len(unsat_given)):
+            ## all vars on same row
+            all_ij_comb.add((assigned_i, col))
+            ## all vars on same col
+            all_ij_comb.add((col, assigned_j))
+
+        top_left_row = (assigned_i//n)*n
+        top_left_col = (assigned_j//n)*n
+
+        for row in range(n):
+            for col in range(n):
+                all_ij_comb.add((top_left_row+row, top_left_col+col))
+
+    print("\n\n")
+    for row in range(len(unsat_given)):
+        for col in range(len(unsat_given[0])):
+            if unsat_given[row, col] != 0:
+                continue
+
+            if assigned_cell and (row, col) not in all_ij_comb:
+                continue
+
+            for v in range(1, len(unsat_given)+1):
+                print((row, col, v))
+                if v == uniq_solution[row, col]:
+                    continue
+
+                # introducing the inconsistency
+                cpm_cons = cells[row, col] == v
+                ind = cp.boolvar(name=f"->{cpm_cons}")
+
+                sat_solver += ind.implies(cpm_cons)
+
+                assum_dict ={**base_assum_dict, **{ind:cpm_cons}}
+                                # same row or same col
+                top_left_row = (row//n)*n
+                top_left_col = (col//n)*n
+                if v in unsat_given[row,:] or v in unsat_given[:, col] or v in unsat_given[top_left_row:top_left_row+n, top_left_col:top_left_col+n]:
+                    ocus_costs[(row, col, v)] = (ind, cpm_cons, None, 22)
+                    continue
+
+                smus_algo = WeightedOCUS(
+                    sat_solver=sat_solver,
+                    assum_dict=assum_dict,
+                    weights= weights + [1], grow_class=CorrSubsets, sub_grow_algo=GreedyGrow,
+                    constraint=[ind == 1])
+
+                smus = smus_algo.get_subset()
+                smus_cons = [assum_dict[c] for c in smus]
+                ocus_cost = sum(20 if isinstance(c, cp.AllDifferent) else 1 for c in smus_cons)
+                ocus_costs[(row, col, v)] = (ind, cpm_cons, smus_cons, ocus_cost)
+    print("\n\n")
+
+def update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=None):
+    from CSPExplain.subset.weighted import WeightedOCUS
+    from CSPExplain.subset.mus import SMUS
+    from CSPExplain.subset.grow import CorrSubsets, GreedyGrow
+    
+    n = int(len(unsat_given) ** (0.5))
+    if assigned_cell:
+        assigned_i, assigned_j = assigned_cell
+        
+        all_ij_comb = set()
+        for col in range(len(unsat_given)):
+            ## all vars on same row
+            all_ij_comb.add((assigned_i, col))
+            ## all vars on same col
+            all_ij_comb.add((col, assigned_j))
+
+        top_left_row = (assigned_i//n)*n
+        top_left_col = (assigned_j//n)*n
+
+        for row in range(n):
+            for col in range(n):
+                all_ij_comb.add((top_left_row+row, top_left_col+col))
+
+    print("\n\n")
+    for row in range(len(unsat_given)):
+        for col in range(len(unsat_given[0])):
+            if unsat_given[row, col] != 0:
+                continue
+
+            if assigned_cell and (row, col) not in all_ij_comb:
+                continue
+
+            for v in range(1, len(unsat_given)+1):
+                print((row, col, v))
+                if v == uniq_solution[row, col]:
+                    continue
+
+                # introducing the inconsistency
+                cpm_cons = cells[row, col] == v
+                ind = cp.boolvar(name=f"->{cpm_cons}")
+
+                sat_solver += ind.implies(cpm_cons)
+
+                assum_dict ={**base_assum_dict, **{ind:cpm_cons}}
+                                # same row or same col
+                top_left_row = (row//n)*n
+                top_left_col = (col//n)*n
+                if v in unsat_given[row,:] or v in unsat_given[:, col] or v in unsat_given[top_left_row:top_left_row+n, top_left_col:top_left_col+n]:
+                    ocus_costs[(row, col, v)] = (ind, cpm_cons, None, 22)
+                    continue
+
+                smus_algo = WeightedOCUS(
+                    sat_solver=sat_solver,
+                    assum_dict=assum_dict,
+                    weights= weights + [1], grow_class=CorrSubsets, sub_grow_algo=GreedyGrow,
+                    constraint=[ind == 1])
+
+                smus = smus_algo.get_subset()
+                smus_cons = [assum_dict[c] for c in smus]
+                ocus_cost = sum(20 if isinstance(c, cp.AllDifferent) else 1 for c in smus_cons)
+                ocus_costs[(row, col, v)] = (ind, cpm_cons, smus_cons, ocus_cost)
+    print("\n\n")
+
+def ocus_conflict(given, uniq_solution, num_errors=1):
+    from CSPExplain.examples.sudoku import build_all_sudoku_constraints
+
+    errors_added = 0
+    unsat_given = np.array(given)
+    sudoku_constraints, cells = build_all_sudoku_constraints(unsat_given)
+    weights = [20 if isinstance(cpm_cons, cp.AllDifferent) else 1 for cpm_cons in sudoku_constraints]
+
+    num_unassigned = len(unsat_given[unsat_given == 0])
+    sat_solver = cp.SolverLookup.get("pysat")
+
+    base_assum_dict = {}
+    for cpm_cons in sudoku_constraints:
+        ind = cp.boolvar(name=f"->{cpm_cons}")
+        sat_solver += ind.implies(cpm_cons)
+        base_assum_dict[ind] = cpm_cons
+
+    ocus_costs = {}
+
+    ### do it incremnetally !
+    update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution)
+
+    while errors_added < num_errors and errors_added < num_unassigned:
+        (i, j, v) = max(ocus_costs, key=lambda x: ocus_costs[x][3])
+        (ind, cpm_cons, _, _) = ocus_costs[(i, j, v)]
+
+        for vij in range(1, len(unsat_given)+1):
+            if vij == uniq_solution[i, j]:
+                continue
+            del ocus_costs[i, j, vij]
+
+        unsat_given[i, j] = v
+        weights += [1]
+        errors_added += 1
+
+        ## recompute ocus_costs
+        base_assum_dict[ind] = cpm_cons
+        ocus_errors_only = np.array(unsat_given)
+        ocus_errors_only[given == unsat_given] = 0
+
+        ### do it incremnetally !
+        update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=(i, j))
+
+    return unsat_given
+
 def difficult_conflict_at(row, col, given, uniq_solution):
     """Generate candidate inconsistencies at a given position.
     Filter out the too obvious inconsistencies."""
