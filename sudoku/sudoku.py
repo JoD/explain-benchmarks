@@ -300,14 +300,8 @@ def model_unsat_sudoku(dim=9, total_errors=1, total_extra_givens=1, seed=0):
     puzzle = cp.intvar(lb=1, ub=dim, shape=(dim,dim))
     given = np.zeros(shape=(dim,dim), dtype=int)
 
-    indices_to_update = np.random.choice(dim*dim, replace=False, size=dim)
-    indices = np.unravel_index(indices_to_update, given.shape)
-
-    given[indices] = np.arange(1, dim+1, dtype=int)
-
     model = cp.Model(
       # Constraints on rows and columns
-      (puzzle[given!=e] == given[given!=e]),
       [cp.AllDifferent(row) for row in puzzle],
       [cp.AllDifferent(col) for col in puzzle.T], # numpy's Transpose
     )
@@ -322,14 +316,14 @@ def model_unsat_sudoku(dim=9, total_errors=1, total_extra_givens=1, seed=0):
 
     givens_cons = (puzzle == uniq_solution)
 
-    remaining_unraveled_indices = list(set(range(dim*dim)) - set(indices_to_update))
+    remaining_unraveled_indices = list(range(dim*dim))
     remaining_indices = np.random.choice(remaining_unraveled_indices, size=len(remaining_unraveled_indices), replace=False)
 
     num_taken = 0
     num_extra_givens = 0
 
-    #
-    while(nsol > 1  and num_taken < len(remaining_unraveled_indices) and num_extra_givens < total_extra_givens):
+    # sat sudoku building
+    while(nsol > 1  and num_extra_givens < total_extra_givens):
         unraveld_indices = np.unravel_index([remaining_indices[num_taken]], given.shape)
         con = givens_cons[unraveld_indices]
         given[unraveld_indices] = uniq_solution[unraveld_indices]
@@ -338,34 +332,32 @@ def model_unsat_sudoku(dim=9, total_errors=1, total_extra_givens=1, seed=0):
 
         if nsol == 1:
             num_extra_givens += 1
-
         num_taken += 1
+
     sat_sudoku = np.array(given)
 
     ## adding some errors
     num_errors = 0
 
-    while(num_errors < total_errors and num_taken < len(remaining_unraveled_indices)):
+    while(num_errors < total_errors and num_taken < (dim * dim)):
         ##
-        
         unraveld_indices = np.unravel_index([remaining_indices[num_taken]], given.shape)
         row, col = unraveld_indices[0][0], unraveld_indices[1][0]
-        
+
         remaining_values = difficult_conflict_at(row, col, given, uniq_solution)
 
         if len(remaining_values) == 0:
             num_taken += 1
             continue
-        
+
         val = np.random.choice(remaining_values, replace=False, size=1)
         given[unraveld_indices] = val
 
-        num_taken += 1
         num_errors += 1
 
     return {"givens" :given, "sat": sat_sudoku}
 
-def model_solve_sudoku(dims=(9, 9)):
+def model_sat_sudoku(dims=(9, 9)):
   """Generates a Sudoku puzzle for given dimensions, defaults to a 9x9 Sudoku
   puzzle.
 
@@ -380,14 +372,9 @@ def model_solve_sudoku(dims=(9, 9)):
 
   puzzle = cp.intvar(lb=1, ub=dims[0], shape=dims)
   given = np.zeros(shape=dims, dtype=int)
-  indices_to_update = np.random.choice(dims[1]*dims[0], replace=False, size=dims[0])
-  indices = np.unravel_index(indices_to_update, given.shape)
-
-  given[indices] = np.arange(1, dims[0] + 1, dtype=int)
 
   model = cp.Model(
       # Constraints on rows and columns
-      (puzzle[given!=e] == given[given!=e]),
       [cp.AllDifferent(row) for row in puzzle],
       [cp.AllDifferent(col) for col in puzzle.T], # numpy's Transpose
   )
@@ -402,7 +389,7 @@ def model_solve_sudoku(dims=(9, 9)):
 
   givens_cons = (puzzle == uniq_solution)
 
-  remaining_unraveled_indices = list(set(range(dims[1]*dims[0])) - set(indices_to_update))
+  remaining_unraveled_indices = list(set(range(dims[1]*dims[0])))
   remaining_indices = np.random.choice(remaining_unraveled_indices, size=len(remaining_unraveled_indices), replace=False)
 
   num_taken = 0
