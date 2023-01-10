@@ -10,7 +10,7 @@ See also my cpmpy page: http://hakank.org/cpmpy/
 """
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 BOX_COEFFICIENT = 10000000
 def bin_packing():

@@ -81,7 +81,7 @@ import sys,math
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def wedding_optimal_chart(guest,names,names2,problem,opt_type="maximize"):

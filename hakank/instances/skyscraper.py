@@ -33,7 +33,7 @@ See also my cpmpy page: http://hakank.org/cpmpy/
 from cpmpy import *
 import cpmpy.solvers
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 

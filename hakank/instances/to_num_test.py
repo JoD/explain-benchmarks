@@ -8,7 +8,7 @@ See also my CPMpy page: http://www.hakank.org/cpmpy/
 from cpmpy import *
 from cpmpy.solvers import *
 import numpy
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def to_num_test(n=4,base=10):

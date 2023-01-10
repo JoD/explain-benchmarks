@@ -47,7 +47,7 @@ See also my cpmpy page: http://www.hakank.org/cpmpy/
 from cpmpy import *
 from cpmpy.solvers import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 from collections import defaultdict
 
 def print_solution(A, E, alpha, n, word_len):

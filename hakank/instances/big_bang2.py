@@ -35,7 +35,7 @@ Also, see his Comet page: http://www.hakank.org/comet
 """
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def big_bang2(minimize_val=False):

@@ -14,7 +14,7 @@ See also my cpmpy page: http://www.hakank.org/cpmpy/
 """
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 # This is Tias' version
 def least_diff2():

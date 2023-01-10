@@ -43,7 +43,7 @@ import sys, math
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def pandigital_numbers(base=10, start=1, len1=1, len2=4):
 

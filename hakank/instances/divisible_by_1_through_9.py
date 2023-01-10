@@ -26,7 +26,7 @@ See also my CPMpy page: http://www.hakank.org/cpmpy/
 import os,random
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def divisible_by_1_through_9(base=10):

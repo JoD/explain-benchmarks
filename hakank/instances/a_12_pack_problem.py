@@ -50,7 +50,7 @@ import sys,random
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
   

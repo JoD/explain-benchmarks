@@ -19,7 +19,7 @@ See also my CPMpy page: http://hakank.org/cpmpy/
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def nqueens_v3(n=8,num_sols=0):

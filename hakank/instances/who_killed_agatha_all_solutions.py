@@ -18,7 +18,7 @@ from cpmpy import *
 from enum import Enum
 import numpy as np
 from cpmpy.solvers import CPM_ortools
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def who_killed_agatha():
 

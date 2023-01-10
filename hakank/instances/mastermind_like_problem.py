@@ -27,7 +27,7 @@ import sys
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 #
 # A fairly faithful port of the Z3 in op.cit.

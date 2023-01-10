@@ -18,7 +18,7 @@ import sys
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def coins3(denominations=[1, 2, 5, 10, 25, 50],num_coins_val=0):

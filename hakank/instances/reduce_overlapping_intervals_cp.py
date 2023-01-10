@@ -83,7 +83,7 @@ See also my cpmpy page: http://hakank.org/cpmpy/
 """
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import * # See http://hakank.org/cpmpy/cpmpy_hakank.py
+from instances.cpmpy_hakank import * # See http://hakank.org/cpmpy/cpmpy_hakank.py
 
 # For testing the solutions
 def has_overlaps(a):

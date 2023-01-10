@@ -19,7 +19,7 @@ import sys
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def magic_sequence(n=10, num_sols=0):
   print("n:",n)

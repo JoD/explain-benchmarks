@@ -12,7 +12,7 @@ import math, sys
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import CPM_ortools
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 import sys
 
 

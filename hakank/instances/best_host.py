@@ -65,7 +65,7 @@ By placing Andrew at position 1 (as symmetry breaking) there are
 """
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def member_of2(x, val):

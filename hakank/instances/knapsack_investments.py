@@ -60,7 +60,7 @@ See also my cpmpy page: http://www.hakank.org/cpmpy/
 import sys
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def knapsack_investments(total_values_val=0):

@@ -46,7 +46,7 @@ See also my CPMpy page: http://www.hakank.org/cpmpy/
 """
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def five_brigands():
     # Everybody has at least 8d.; nobody has more than 160    

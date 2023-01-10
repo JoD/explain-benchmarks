@@ -12,7 +12,7 @@ import sys,math
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def magic_square(n=4,num_sols=0,symmetry_breaking=False,num_procs=1):

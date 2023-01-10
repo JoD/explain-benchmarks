@@ -49,7 +49,7 @@ import sys,math,random
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def rehearsal_model(rehearsal,duration,timeout=None,num_procs=1):

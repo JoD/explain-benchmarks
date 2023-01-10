@@ -8,7 +8,7 @@ See also my cpmpy page: http://www.hakank.org/cpmpy/
 import sys,re
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def pythagoras():

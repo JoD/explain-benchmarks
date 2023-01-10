@@ -68,7 +68,7 @@ import sys, math,string
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def match_hobbies(hobbies_flat,h1,h2,num_hobbies,num_matches):
   """

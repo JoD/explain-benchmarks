@@ -37,7 +37,7 @@ See also my CPMpy page: http://www.hakank.org/cpmpy/
 import random
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def random_01_graph(n):
     return [ [random.randint(0,1) for _ in range(n)] for _ in range(n)] 

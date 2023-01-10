@@ -7,6 +7,10 @@
 
 ## Read Minzinc Model from file 
 
+from instances import ALL_HAKANK_MODELS
+
+for m in ALL_HAKANK_MODELS:
+    print(m)
 ## Introduce mistakes non-trivially
 ## Random instance selection
 ## 1. Swapping arguments to gloabal

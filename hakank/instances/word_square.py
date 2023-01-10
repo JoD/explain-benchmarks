@@ -18,14 +18,14 @@ import re
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 #
 # convert a character to integer
 #
 def get_dict():
-    alpha = "abcdefghijklmnopqrstuvwxyzåäö";
+    alpha = "abcdefghijklmnopqrstuvwxyzåäö"
     d = {}
     rev = {}
     count = 1
@@ -77,7 +77,6 @@ def word_square(word_len = 5, num_sols = 3):
 
     return model 
 
-
 def read_words(word_list, word_len):
     dict = {}
     all_words = []
@@ -92,3 +91,5 @@ def read_words(word_list, word_len):
     return all_words
 
 
+def get_model():
+    return word_square()

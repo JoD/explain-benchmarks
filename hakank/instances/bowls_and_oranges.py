@@ -24,7 +24,7 @@ See also my CPMpy page: http://www.hakank.org/cpmpy/
 import random
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def bowls_and_oranges():
 
@@ -49,7 +49,7 @@ def bowls_and_oranges():
                 model += ((x[j]-x[i]) != (x[k]-x[j]))
 
   return model
-num_solutions:", num_solutions)
+
 def get_model():
   return bowls_and_oranges()
 

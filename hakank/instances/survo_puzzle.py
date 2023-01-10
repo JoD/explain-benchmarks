@@ -35,7 +35,7 @@ See also my CPMpy page: http://www.hakank.org/cpmpy/
 import sys
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 import random
 
 #

@@ -20,7 +20,7 @@ See also my cpmpy page: http://hakank.org/cpmpy/
 """
 from cpmpy import *
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 from cpmpy.solvers import *
 from ortools.sat.python import cp_model as ort
 

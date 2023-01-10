@@ -8,7 +8,7 @@ See also my cpmpy page: http://hakank.org/cpmpy/
 from cpmpy import *
 from cpmpy.solvers.utils import get_supported_solvers
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def minimum_except_0_test(n):
 

@@ -29,7 +29,7 @@ import sys
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def model_17_b(nb_rows=10,nb_columns=10,nb_colors=4,num_sols=0,num_procs=1):
     

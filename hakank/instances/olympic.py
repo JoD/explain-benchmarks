@@ -38,7 +38,7 @@ See also my cpmpy page: http://hakank.org/cpmpy/
 from cpmpy import *
 import cpmpy.solvers
 import numpy as np
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 
@@ -76,5 +76,5 @@ def olympic():
 
   return model
 
-def get_mode():
+def get_model():
   return olympic()

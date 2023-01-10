@@ -74,7 +74,7 @@ import sys
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 
 def knapsack_rosetta_code_01(items,max_total_weight):

@@ -79,7 +79,7 @@ import sys,time
 import numpy as np
 from cpmpy import *
 from cpmpy.solvers import *
-from cpmpy_hakank import *
+from instances.cpmpy_hakank import *
 
 def consecutive_integers_problem(n=12,m=None,symmetry_breaking=True,num_sols=0,print_solutions=True):
     if print_solutions:
