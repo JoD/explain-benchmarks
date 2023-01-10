@@ -39,7 +39,7 @@ def generate_unsat_instance(jobs, machines, horizon, seed=0, flow=False):
 
 def generate_instance(jobs, machines, horizon, seed=0, flow=False):
   random.seed(seed)
-  maxtime = horizon//jobs
+  maxtime = horizon// (jobs+1)
 
 
   duration=[[0] * machines for i in range(0,jobs)]
