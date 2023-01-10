@@ -54,8 +54,6 @@ def fill_a_pix(puzzle='', n=''):
   if puzzle == '':
     puzzle = default_puzzle
     n = default_n
-  else:
-    print('n:', n)
 
   # for the neighbors of 'this' cell
   S = [-1, 0, 1]

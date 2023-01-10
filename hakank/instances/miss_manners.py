@@ -92,7 +92,7 @@ def miss_manners(problem,num_procs=1):
   hobbies = cpm_array(problem["hobbies"])
   hobbies_flat = cpm_array([hobbies[i,j] for i in range(n) for j in range(num_hobbies)])
 
-  print("n:",n,"num_hobbies:",num_hobbies,"n*num_hobbies:",n*num_hobbies)
+  #print("n:",n,"num_hobbies:",num_hobbies,"n*num_hobbies:",n*num_hobbies)
 
   # variables
   seating = intvar(0,n-1,shape=n,name="seating")

@@ -48,7 +48,7 @@ from instances.cpmpy_hakank import *
 #
 def no_time_to_try_cp(buttons):
 
-  print("buttons:",buttons)
+  #print("buttons:",buttons)
 
   n = 4
   x = intvar(0,9,shape=n,name="x")

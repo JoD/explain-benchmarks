@@ -38,7 +38,7 @@ def divisible_by_1_through_9(base=10):
   n = base - 1
   digits_str = "_0123456789ABCDEFGH"
 
-  print("\nchecking base:", base,"n:",n, "m:",m)
+  #print("\nchecking base:", base,"n:",n, "m:",m)
 
 
   # declare variables

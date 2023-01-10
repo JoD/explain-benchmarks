@@ -50,7 +50,7 @@ def word_square(word_len = 5, num_sols = 3):
         num_sols = int(sys.argv[4])
 
     words = read_words(word_dict, word_len)
-    print("It was", len(words), "words")
+    #print("It was", len(words), "words")
     word_square(words, word_len,num_sols)
 
     num_words = len(words)

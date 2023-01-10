@@ -22,7 +22,7 @@ from instances.cpmpy_hakank import *
 
 
 def coins3(denominations=[1, 2, 5, 10, 25, 50],num_coins_val=0):
-  print("num_coins_val:",num_coins_val)
+  #print("num_coins_val:",num_coins_val)
   
   # data
   # n = 6  # number of different coins
@@ -56,5 +56,5 @@ def get_model():
   
   denominations=[1, 2, 5, 10, 25, 50]
   # denominations=[1, 5, 10, 25, 50]
-  print("denominations:", denominations),
+  #print("denominations:", denominations),
   return coins3(denominations,0)

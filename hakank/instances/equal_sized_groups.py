@@ -67,7 +67,7 @@ def equal_sized_groups(a,k):
     # a: the array of elements
     # k: number of groups
 
-    # print("a:", a)
+    # #print("a:", a)
 
     # Assert that we have enough different values to
     # create k groups
@@ -79,7 +79,7 @@ def equal_sized_groups(a,k):
 
     # The valid break points
     valid_breaks = [j for j in range(1,n) if  a[j] != a[j-1]]
-    # print("valid_breaks:",valid_breaks)
+    # #print("valid_breaks:",valid_breaks)
 
     # Non-valid break points
     # non_valid_breaks = [j for j in range(1,n) if a[j] == a[j-1]]

@@ -33,12 +33,12 @@ def send_most_money2():
     num_solutions = 0
     while ss.solve() is not False:
         num_solutions += 1
-        print(x.value(), "money:",money.value() )        
+        #print(x.value(), "money:",money.value() )        
         if MONEY == None:
             MONEY = money.value()
             ss += [money == MONEY]
         ss += any(x != x.value())
-    print("num_solutions:",num_solutions)
+    #print("num_solutions:",num_solutions)
     return model
 
 def get_model():

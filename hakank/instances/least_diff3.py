@@ -33,7 +33,7 @@ def least_diff3():
    return model
 
 
-print("\nv3:")
+#print("\nv3:")
 def get_model():
     return least_diff3()
 

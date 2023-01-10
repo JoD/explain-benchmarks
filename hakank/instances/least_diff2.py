@@ -31,10 +31,6 @@ def least_diff2():
        res > 0,
    ],minimize=res)
    ss = CPM_ortools(model)
-   if ss.solve():
-      print("res:",res.value())
-      print("x:",x.value())
-   print(model.status())
 
 def get_model():
     return least_diff2()

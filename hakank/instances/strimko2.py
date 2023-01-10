@@ -52,7 +52,7 @@ def strimko2(streams='', placed=''):
   n = len(streams)
   num_placed = len(placed)
 
-  print('n:', n)
+  #print('n:', n)
 
   # variables
   x = intvar(1,n,shape=(n,n), name="x")

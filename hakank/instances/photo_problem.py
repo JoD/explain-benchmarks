@@ -35,7 +35,7 @@ from instances.cpmpy_hakank import *
 
 
 def photo_problem(z_val=0):
-  print("z_val:", z_val)
+  #print("z_val:", z_val)
 
   # data
   persons = ["Betty", "Chris", "Donald", "Fred", "Gary", "Mary", "Paul"]
@@ -52,13 +52,7 @@ def photo_problem(z_val=0):
       [0, 0, 1, 1, 0, 0, 0]   # Paul   6
   ]
 
-  if z_val == 0:
-      print("""Preferences:
-         1. Betty wants to stand next to Gary and Mary.
-         2. Chris wants to stand next to Betty and Gary.
-         3. Fred wants to stand next to Mary and Donald.
-         4. Paul wants to stand next to Fred and Donald.
-        """)
+
       
   #
   # declare variables

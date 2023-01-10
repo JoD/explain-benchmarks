@@ -33,7 +33,7 @@ def debruijn(base=2, n=3, m=0):
     if m == 0:
         m = base**n
 
-    print("base:", base, "n:",n, "m:", m)
+    #print("base:", base, "n:",n, "m:", m)
 
     #
     # Decision variables
@@ -64,14 +64,7 @@ def debruijn(base=2, n=3, m=0):
 
     return model
 
-#
-# Print the mines
-#
-def print_matrix(x, rows, cols):
-    for i in range(rows):
-        for j in range(cols):
-            print(x[i][j].value(),end=" ")
-        print()
+
 
 
 def get_model():

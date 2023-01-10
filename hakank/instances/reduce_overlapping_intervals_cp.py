@@ -96,7 +96,7 @@ def has_overlaps(a):
     n = len(a)
     for i in range(1,n):
         if a[i][0] > a[i-1][0] and a[i][0] < a[i-1][1]:
-            print("overlaps:", a[i-1],"and",a[i])
+            #print("overlaps:", a[i-1],"and",a[i])
             return True 
     return False
 
@@ -108,17 +108,17 @@ def print_solution(a):
     # The selected intervals, as indices in each interval list
     xval = a[0].value()
     n = len(xval)
-    print(xval)
+    #print(xval)
     # The selected intervals, as intervals
     sols = [intervals[i][xval[i]] for i in range(n)]
-    print(sols)
+    #print(sols)
     
     # Check the solution (with a sorted intervals list)
     # if not has_overlaps(sorted(sols)):
-    #     print("OK")
+    #     #print("OK")
     # else:
-    #     print("NOT OK!")
-    print(flush=True)
+    #     #print("NOT OK!")
+    #print(flush=True)
     
 
 #

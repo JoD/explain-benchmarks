@@ -67,7 +67,7 @@ from instances.cpmpy_hakank import *
 
 
 def map_coloring(use_value_precede_chain=False):
-    print("Use value precede chain symmetry constraint:", use_value_precede_chain)
+    #print("Use value precede chain symmetry constraint:", use_value_precede_chain)
     
     Belgium     = 0
     Denmark     = 1

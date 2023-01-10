@@ -37,13 +37,13 @@ def alphametic(problem_str="SEND+MORE=MONEY", base=10):
   model = Model()
 
   # data
-  print("\nproblem:", problem_str)
+  #print("\nproblem:", problem_str)
 
   # convert to array.
   problem = re.split("[\s+=]", problem_str)
 
   p_len = len(problem)
-  print("base:", base)
+  #print("base:", base)
 
   # create the lookup table: list of (digit : ix)
   a = sorted(set("".join(problem)))

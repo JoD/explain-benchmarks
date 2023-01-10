@@ -110,7 +110,7 @@ def generating_numbers(m=20):
 
     model = Model()
 
-    print("m:", m)
+    #print("m:", m)
 
     n = 5
 

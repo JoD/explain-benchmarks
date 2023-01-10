@@ -94,12 +94,12 @@ def make_transition_matrix(pattern):
                     t_matrix[i][0] = i + 2
                     t_matrix[i][1] = 0
 
-    # print('The states:') # For debugging
+    # #print('The states:') # For debugging
     # for i in range(num_states):
     #     for j in range(2):
-    #         print(t_matrix[i][j],end=" ")
-    #     print()
-    # print()
+    #         #print(t_matrix[i][j],end=" ")
+    #     #print()
+    # #print()
 
     return t_matrix
 
@@ -157,15 +157,15 @@ def nonogram_regular(rows, row_rule_len, row_rules, cols, col_rule_len, col_rule
             row_pres.append('#')
           else:
             row_pres.append(' ')
-        print('  ', ''.join(row_pres))
+        #print('  ', ''.join(row_pres))
 
-      print(flush=True)        
-      print('  ', '-' * cols)
+      #print(flush=True)        
+      #print('  ', '-' * cols)
       
 
-    print("Solve")
+    #print("Solve")
     if minizinc_solver == None:
-      print("Solver: ortools from cpmpy")
+      #print("Solver: ortools from cpmpy")
       # all solution solving, with blocking clauses
       ss = CPM_ortools(model)    
 
@@ -180,25 +180,25 @@ def nonogram_regular(rows, row_rule_len, row_rules, cols, col_rule_len, col_rule
       # ort_status = ss.ort_solver.SearchForAllSolutions(ss.ort_model, cb)
 
       num_solutions = ss.solveAll(solution_limit=num_sols,display=print_sol)
-      print("Nr solutions:", num_solutions)
-      print("Num conflicts:", ss.ort_solver.NumConflicts())
-      print("NumBranches:", ss.ort_solver.NumBranches())
-      print("WallTime:", ss.ort_solver.WallTime())
+      #print("Nr solutions:", num_solutions)
+      #print("Num conflicts:", ss.ort_solver.NumConflicts())
+      #print("NumBranches:", ss.ort_solver.NumBranches())
+      #print("WallTime:", ss.ort_solver.WallTime())
 
     else:
-      print("MiniZinc solver:", minizinc_solver)
+      #print("MiniZinc solver:", minizinc_solver)
       ss = CPM_minizinc(model,minizinc_solver)
       num_solutions = 0
       flags = {'verbose':True}
       # -f (free_search) is not supported by all solvers!
       if minizinc_solver in ["chuffed","or_tools","picat_sat","gecode"]:
-        print("Using -f")
+        #print("Using -f")
         flags['free_search'] = True
       time1 = time.time()              
       num_solutions = ss.solveAll(solution_limit=num_sols,display=print_sol)
       time2 = time.time()
-      print("Nr solutions:", num_solutions)
-      print(f"WallTime: {time2-time1}")
+      #print("Nr solutions:", num_solutions)
+      #print(f"WallTime: {time2-time1}")
 
 #
 # Default problem

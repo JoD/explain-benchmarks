@@ -74,7 +74,7 @@ def mr_smith_v1():
 
   ss = CPM_ortools(model)
   num_solutions = ss.solveAll(display=x)
-  print('num_solutions:', num_solutions)
+  #print('num_solutions:', num_solutions)
 
 #
 # This version use logical operators:

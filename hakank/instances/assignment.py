@@ -15,15 +15,6 @@ import numpy as np
 from instances.cpmpy_hakank import *
 
 # Presentation for problem 3
-def print_solution3(x,tasks,people):
-    rows = len(tasks)
-    cols = len(people)
-    for i in range(rows):
-        print(tasks[i], end="")
-        for j in range(cols):
-            if x[i][j] == 1:
-                print(" with", people[j])
-
 
 assignment_problems = {
     #
@@ -103,7 +94,6 @@ assignment_problems = {
                 [5, 5, 6, 7]],
       "tasks": ["Tom Cruise","Freddie Prinz Jr","Harrison Ford","Mark LeBlanc"],
       "people" : ["Jennifer Anniston", "Courtney Cox","Gwynneth Paltrow","Julia Roberts"],
-      "print_solution": print_solution3
       },
       
 

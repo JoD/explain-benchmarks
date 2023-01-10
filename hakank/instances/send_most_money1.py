@@ -21,21 +21,9 @@ def send_most_money(MONEY=None):
                    s > 0,m > 0,
                    AllDifferent(x)]
 
-    if MONEY == None:
-        model = Model(constraints, maximize=money)
-        ss = CPM_ortools(model)
-        if ss.solve():
-            print(x.value())
-            return money.value()
-    else:
-        model = Model(constraints)
-        ss = CPM_ortools(model)
-        model += [money==MONEY]
-        print(model)
-        while ss.solve():
-            if money.value() == MONEY:
-                print(x.value(), "money:",money.value() )
-            ss += any(x != x.value())
+    
+    model = Model(constraints, maximize=money)
+        
     return model
 
 def get_model():

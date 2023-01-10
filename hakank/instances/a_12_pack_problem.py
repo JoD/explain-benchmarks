@@ -55,7 +55,7 @@ from instances.cpmpy_hakank import *
 
   
 def n_pack_problem(target,given,max_val):
-    print("target:",target, "given:",given)
+    #print("target:",target, "given:",given)
     
     n = len(given)
 

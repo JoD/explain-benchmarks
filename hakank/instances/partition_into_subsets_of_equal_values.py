@@ -43,11 +43,9 @@ def random_s(max_val,n,num_subsets):
 def partition_into_subsets_of_equal_values(s,num_subsets,num_sols=0):
 
     n = len(s)
-    if n < 20:
-        print(s)
 
     partition_sum = sum(s) // num_subsets
-    print("n:",n,"num_subsets:",num_subsets,"partition_sum:",partition_sum)
+    #print("n:",n,"num_subsets:",num_subsets,"partition_sum:",partition_sum)
 
     # variables
     x = intvar(0,num_subsets-1,shape=n,name="x")

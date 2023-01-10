@@ -142,11 +142,11 @@ def MCDP1(machines, parts, cells, mmax, matrix_machine_part):
 
     model = Model()
 
-    print("machines:", machines)
-    print("parts: ", parts)
-    print("cells: ", cells)
-    print("mmax: ", mmax)
-    # print('machines: %i parts: %i cells: %i mmax: %i' % (machines, parts, cells, mmax))
+    #print("machines:", machines)
+    #print("parts: ", parts)
+    #print("cells: ", cells)
+    #print("mmax: ", mmax)
+    # #print('machines: %i parts: %i cells: %i mmax: %i' % (machines, parts, cells, mmax))
 
     #
     # Variables

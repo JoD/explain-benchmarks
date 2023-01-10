@@ -17,7 +17,7 @@ from instances.cpmpy_hakank import *
 # Using scalar product
 #
 def send_more_money2():
-    print("\nsend_more_money2 (prove unicity)")
+    #print("\nsend_more_money2 (prove unicity)")
     x = IntVar(0,9,shape=8)
     s,e,n,d,m,o,r,y = x
     send = IntVar(0,9999)

@@ -43,7 +43,7 @@ from instances.cpmpy_hakank import *
 def discrete_tomography(row_sums="", col_sums=""):
 
     if row_sums == "":
-        print("Using default problem")
+        #print("Using default problem")
         row_sums = [0,0,8,2,6,4,5,3,7,0,0]
         col_sums = [0,0,7,1,6,3,4,5,2,7,0,0]
 

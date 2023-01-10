@@ -32,7 +32,7 @@ from instances.cpmpy_hakank import *
 
 
 def isbn(isbn_init):
-  print("isbn_init:", isbn_init)
+  #print("isbn_init:", isbn_init)
   
   model = Model()
   
@@ -76,7 +76,7 @@ def isbn(isbn_init):
   # check digit
   model += [isbn[-1] == ((10 - (tsum % 10)) % 10)]
 
-  # print(model)
+  # #print(model)
 
   return model
 

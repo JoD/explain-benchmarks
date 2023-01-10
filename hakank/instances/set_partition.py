@@ -55,9 +55,9 @@ def set_partition_model(n=16, num_sets=2):
 
   
   # data
-  print("n:", n)
-  print("num_sets:", num_sets)
-  print()
+  #print("n:", n)
+  #print("num_sets:", num_sets)
+  #print()
 
   # Check sizes
   assert n % num_sets == 0, "Equal sets is not possible."

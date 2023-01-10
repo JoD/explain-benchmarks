@@ -42,7 +42,7 @@ from instances.cpmpy_hakank import *
 def social_golfer1(weeks=4,groups=3,groupSize=3,num_sols=1):
 
   golfers = groups * groupSize
-  print("golfers:",golfers,"weeks:",weeks,"groupSize:",groupSize,"groups:",groups)
+  #print("golfers:",golfers,"weeks:",weeks,"groupSize:",groupSize,"groups:",groups)
 
   
   Golfer = list(range(golfers))
@@ -86,7 +86,7 @@ def social_golfer1(weeks=4,groups=3,groupSize=3,num_sols=1):
   for w in Week:
     model += [assign[0,w] == 0]
   
-  # print(model)
+  # #print(model)
 
   return model
 

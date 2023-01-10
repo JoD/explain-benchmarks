@@ -22,7 +22,7 @@ from cpmpy.solvers import *
 from instances.cpmpy_hakank import *
 
 def magic_sequence(n=10, num_sols=0):
-  print("n:",n)
+  #print("n:",n)
   model = Model()
 
   x = intvar(0,n-1,shape=n,name="x")

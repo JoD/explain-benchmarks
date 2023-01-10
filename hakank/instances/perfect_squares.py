@@ -158,7 +158,7 @@ def perfect_squares(base,sides,num_sols=0):
     #       _decreasing_ order. Ensure this.
     #       
     if sides[0] < sides[-1]:
-        print("Reversing sides to decreasing order...")
+        #print("Reversing sides to decreasing order...")
         sides.reverse()
 
 

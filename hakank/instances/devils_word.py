@@ -63,7 +63,7 @@ def get_model():
   #
   total = 666
   s = "Håkan Kjellerstrand"
-  print("s:", s)
+  #print("s:", s)
   arr = [ord(c) for c in s]
   # arr = [72, 229, 107, 97, 110, 32, 75, 106, 101, 108, 108, 101, 114, 115, 116, 114, 97, 110, 100]
   return devils_word(total,arr)

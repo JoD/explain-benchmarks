@@ -27,11 +27,7 @@ import numpy as np
 from instances.cpmpy_hakank import *
 
 
-def print_solution(x):
-    print(x[0].value(),x[1].value(),x[2].value(),x[3].value(), " + ",
-          x[4].value(),x[5].value(),x[6].value(),x[7].value(), " = ",
-          x[8].value(),x[9].value(),x[10].value(),x[11].value(),x[12].value())
-    
+
 
 def send_more_money_any_base(base=10,num_sols=0,num_procs=1):
     x = intvar(0,base-1,shape=8,name="x")

@@ -33,7 +33,7 @@ def divisible_by_9_to_1(base=10,print_model=False):
   n = base - 1
   digits_str = "0123456789ABCDEFGH"
 
-  print("base:", base,"n:",n, "m:",m,"print_model:",print_model)
+  #print("base:", base,"n:",n, "m:",m,"print_model:",print_model)
 
   # declare variables
   x = IntVar(1,n, shape=n,name="x")

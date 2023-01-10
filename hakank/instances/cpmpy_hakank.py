@@ -86,7 +86,7 @@ def get_different_solution(m,x):
      # ...
      ss = CPM_ortools(model)
      if ss.solve():
-        print(x.value())
+        #print(x.value())
         get_different_solution(ss, x)
 
   Note: The array in x must be a flattened array. If there are
@@ -96,9 +96,9 @@ def get_different_solution(m,x):
      # ...
      ss = CPM_ortools(model)
      while ss.solve():
-        print(x.value()) # an array
-        print(y.value()) # a variable
-        print(z.value()) # another variable        
+        #print(x.value()) # an array
+        #print(y.value()) # a variable
+        #print(z.value()) # another variable        
         get_different_solution(ss,flatten_lists([x,[y,z]])
 
   Note that this might be slow for larger models or models with
@@ -153,7 +153,7 @@ class ORT_simple_printer(ort.CpSolverSolutionCallback):
       cpm_var._value = self.Value(self.varmap[cpm_var])
       
     (a) = self.vars            
-    print(f"#{self.solcount}: {a.value()}")
+    #print(f"#{self.solcount}: {a.value()}")
 
     if self.num_solutions > 0 and self.solcount >= self.num_solutions:
       self.StopSearch()
@@ -184,7 +184,7 @@ class ORT_arrays_printer(ort.CpSolverSolutionCallback):
       cpm_var._value = self.Value(self.varmap[cpm_var])
       
     (a) = self.vars            
-    print(f"#{self.solcount}: {a.value()}")
+    #print(f"#{self.solcount}: {a.value()}")
 
     if self.num_solutions > 0 and self.solcount >= self.num_solutions:
       self.StopSearch()
@@ -211,12 +211,6 @@ class ORT_simple_printer_matrix(ort.CpSolverSolutionCallback):
       cpm_var._value = self.Value(self.varmap[cpm_var])
 
     (a) = self.vars
-    print(f"#{self.solcount}:")    
-    for i in range(self.rows):
-      for j in range(self.cols):
-        print("%3d" % a[i*self.cols+j].value(), end=" ")
-      print()
-    print()
 
     if self.num_solutions > 0 and self.solcount >= self.num_solutions:
       self.StopSearch()
@@ -232,7 +226,7 @@ class ORT_simple_function_printer(ort.CpSolverSolutionCallback):
 
   Example of a printer function:
     def f(a):
-        print(a[0].value(),"+",a[1].value(),"=",a[2].value())
+        #print(a[0].value(),"+",a[1].value(),"=",a[2].value())
   which will print a solution such as
        2 + 3 = 5
 
@@ -253,7 +247,7 @@ class ORT_simple_function_printer(ort.CpSolverSolutionCallback):
       cpm_var._value = self.Value(self.varmap[cpm_var])
       
     (a) = self.vars
-    print(f"\n#{self.solcount}:")
+    #print(f"\n#{self.solcount}:")
     self.cb_fun(a)
 
     if self.num_solutions > 0 and self.solcount >= self.num_solutions:
@@ -292,8 +286,8 @@ class ORT_function_printer_arrays(ort.CpSolverSolutionCallback):
   Example of a printer function:
 
   def print_solution(a):
-    print('x:', a[0].value())
-    print('y:', a[1].value())
+    #print('x:', a[0].value())
+    #print('y:', a[1].value())
 
   """
   def __init__(self, varmap, a, cb_fun,num_solutions=0):
@@ -312,9 +306,9 @@ class ORT_function_printer_arrays(ort.CpSolverSolutionCallback):
         cpm_var._value = self.Value(self.varmap[cpm_var])
 
     (a) = self.vars
-    print(f"sol #{self.solcount}")
+    #print(f"sol #{self.solcount}")
     self.cb_fun(a)
-    print()
+    #print()
 
     if self.num_solutions > 0 and self.solcount >= self.num_solutions:
       self.StopSearch()
@@ -330,8 +324,8 @@ class ORT_function_printer_arrays2(ort.CpSolverSolutionCallback):
   Example of a printer function:
 
   def print_solution(a):
-    print('x:', a[0].value())
-    print('y:', a[1].value())
+    #print('x:', a[0].value())
+    #print('y:', a[1].value())
 
   """
   def __init__(self, varmap, a, cb_fun,num_solutions=0):
@@ -365,8 +359,8 @@ def print_solution(a):
     Note: a must be an array of arrays to be used with ortools_wrapper
     (defined below).
     """
-    for x in a:
-        print(x.value())
+    # for x in a:
+    #     print(x.value())
 
 
 def ortools_wrapper(model,var_array,print_solution=print_solution,num_sols=0,num_procs=1):
@@ -405,18 +399,18 @@ def ortools_wrapper(model,var_array,print_solution=print_solution,num_sols=0,num
     ss.ort_solver.parameters.cp_model_probing_level = 0
 
     if num_sols == 1 and num_procs > 1:
-      print(f"Using {num_procs} procs")
+      #print(f"Using {num_procs} procs")
       ss.ort_solver.parameters.num_search_workers = num_procs
       ort_status = ss.ort_solver.Solve(ss.ort_model, cb)
     else:
       ort_status = ss.ort_solver.SearchForAllSolutions(ss.ort_model, cb)
     # ss._after_solve(ort_status)
-    print(ss.status())
-    print("Nr solutions:", cb.solcount)
-    print("Num conflicts:", ss.ort_solver.NumConflicts())
-    print("NumBranches:", ss.ort_solver.NumBranches())
-    print("WallTime:", ss.ort_solver.WallTime())
-    print()
+    #print(ss.status())
+    #print("Nr solutions:", cb.solcount)
+    #print("Num conflicts:", ss.ort_solver.NumConflicts())
+    #print("NumBranches:", ss.ort_solver.NumBranches())
+    #print("WallTime:", ss.ort_solver.WallTime())
+    #print()
 
 
 def ortools_wrapper2(model,var_array,print_solution=print_solution,num_sols=0,num_procs=1):
@@ -461,14 +455,14 @@ def ortools_wrapper2(model,var_array,print_solution=print_solution,num_sols=0,nu
     else:
       ort_status = ss.ort_solver.SearchForAllSolutions(ss.ort_model, cb)
       
-    print()
+    #print()
     # ss._after_solve(ort_status) # post-process after solve() call...
-    print(ss.status())
-    print("Nr solutions:", cb.solcount)
-    print("Num conflicts:", ss.ort_solver.NumConflicts())
-    print("NumBranches:", ss.ort_solver.NumBranches())
-    print("WallTime:", ss.ort_solver.WallTime())
-    print()
+    #print(ss.status())
+    #print("Nr solutions:", cb.solcount)
+    #print("Num conflicts:", ss.ort_solver.NumConflicts())
+    #print("NumBranches:", ss.ort_solver.NumBranches())
+    #print("WallTime:", ss.ort_solver.WallTime())
+    #print()
 
 
 
@@ -510,12 +504,12 @@ def ortools_wrapper_opt(model,var_array,print_solution=print_solution,num_sols=1
     ort_status = ss.ort_solver.Solve(ss.ort_model, cb)
     
     # ss._after_solve(ort_status) # post-process after solve() call...
-    print(ss.status())
-    print("Nr solutions:", cb.solcount)
-    print("Num conflicts:", ss.ort_solver.NumConflicts())
-    print("NumBranches:", ss.ort_solver.NumBranches())
-    print("WallTime:", ss.ort_solver.WallTime())
-    print()
+    #print(ss.status())
+    #print("Nr solutions:", cb.solcount)
+    #print("Num conflicts:", ss.ort_solver.NumConflicts())
+    #print("NumBranches:", ss.ort_solver.NumBranches())
+    #print("WallTime:", ss.ort_solver.WallTime())
+    #print()
 
 
 def ortools_wrapper_count_solutions(model,var_array):
@@ -1186,7 +1180,7 @@ def all_different_modulo(x, m):
 
   Ensure that all elements in x (modulo m) are distinct
   """
-  print("x2:",x)
+  #print("x2:",x)
   n = len(x)
   constraints = []
   mods = intvar(0,m-1,shape=n)
@@ -1350,31 +1344,31 @@ def assignment_model(cost, tasks=None,people=None,print_solution=None,opt="min")
     else:
       model.minimize(total_cost)
 
+    return model
+    # ss = CPM_ortools(model)    
+    # if ss.solve():
+    #     #print("total_cost: ", total_cost.value())
+    #     #print("x:")
+    #     #print(x.value())
+    #     #print()
 
-    ss = CPM_ortools(model)    
-    if ss.solve():
-        print("total_cost: ", total_cost.value())
-        print("x:")
-        print(x.value())
-        print()
-
-        if tasks == None and people == None:
-            for i in range(rows):
-                print("Task", i, end="")
-                for j in range(cols):
-                    if x[i][j].value() == 1:
-                        print(" is done by ", j)
-            print()
-        else:
-          if print_solution != None:
-            print_solution(x.value(),tasks,people)
-          else:
-            for i in range(rows):
-                print("Task", tasks[i], end="")
-                for j in range(cols):
-                    if x[i][j].value() == 1:
-                        print(" is done by", people[j])
-            print()
+    #     if tasks == None and people == None:
+    #         for i in range(rows):
+    #             #print("Task", i, end="")
+    #             for j in range(cols):
+    #                 if x[i][j].value() == 1:
+    #                     #print(" is done by ", j)
+    #         #print()
+    #     else:
+    #       if print_solution != None:
+    #         print_solution(x.value(),tasks,people)
+    #       else:
+    #         for i in range(rows):
+    #             #print("Task", tasks[i], end="")
+    #             for j in range(cols):
+    #                 if x[i][j].value() == 1:
+    #                     #print(" is done by", people[j])
+    #         #print()
 
 
 def latin_square(x):
@@ -1407,19 +1401,19 @@ def print_model_and_variables(model):
   print_model_and_variables(model)
 
   Prints the following:
-  - the unflattened model (via print(model))
+  - the unflattened model (via #print(model))
   - the flattened model
   - the variables and the domains in the flattened model
 
   (From Tias Guns when he debugged one of my models. Thanks, Tias!)
   """
-  print("Model:")
-  print(model)
-  print("\nFlattened model and variables:")
+  #print("Model:")
+  #print(model)
+  #print("\nFlattened model and variables:")
   mf = flatten_model(model)
   print_variables(mf)
-  print(mf)
-  print()
+  #print(mf)
+  #print()
 
 
 

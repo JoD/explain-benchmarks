@@ -9,8 +9,19 @@
 
 from instances import ALL_HAKANK_MODELS
 
-for m in ALL_HAKANK_MODELS:
-    print(m)
+def gen_all_instances(n=5):
+    models = []
+
+    for count, (model_name, model_fun) in enumerate(ALL_HAKANK_MODELS.items()):
+        if count >= n:
+            break
+        try:
+            model = model_fun()
+            models.append(model)
+        except:
+            print(f"\n [{count}/{len(ALL_HAKANK_MODELS)}] Failed model:", model_name)
+
+    
 ## Introduce mistakes non-trivially
 ## Random instance selection
 ## 1. Swapping arguments to gloabal
@@ -19,3 +30,6 @@ for m in ALL_HAKANK_MODELS:
 ## 4. wrong variables in constraints
 ## 5. Removing negations
 ## 6. Changig constraints
+
+if __name__== "__main__":
+    all_models = gen_all_instances(300)

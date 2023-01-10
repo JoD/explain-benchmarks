@@ -146,18 +146,6 @@ def bin_packing(capacity, bins, weights):
 #
 # print the packing
 #
-def print_packing(weights,bins):
-    n = len(weights)
-    for i in range(n):
-      total = 0
-      packed = []
-      for j in range(n):
-        if bins[j] == i:
-          total += weights[j]
-          packed.append(j)
-      if total > 0:
-        print("bin %2i"%i , " items:",  packed, " total weight:", total)
-    print()
 
 #
 # minimize the capacity (if capacity1 is not set)

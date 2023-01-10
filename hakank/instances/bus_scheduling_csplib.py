@@ -106,7 +106,7 @@ def bus_scheduling(problem,timeout=60):
     num_shifts     = problem[1]
     min_num_shifts = problem[2]
     shifts         = problem[3]
-    print("num_work:", num_work, "num_shifts:", num_shifts, "min_num_shifts:", min_num_shifts)
+    #print("num_work:", num_work, "num_shifts:", num_shifts, "min_num_shifts:", min_num_shifts)
     
     # variables
     

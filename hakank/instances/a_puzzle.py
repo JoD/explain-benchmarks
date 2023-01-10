@@ -72,7 +72,7 @@ from instances.cpmpy_hakank import *
 
 def puzzle(problem=1):
   
-  print("Problem", problem)
+  #print("Problem", problem)
     
   model = Model()
 

@@ -62,7 +62,7 @@ def polydivisible_numbers(n=10):
 
   # data
   m = 10 ** (n)-1
-  print("n:", n,"m:",m)
+  #print("n:", n,"m:",m)
 
   # declare variables
 
@@ -85,4 +85,4 @@ def get_model():
 
 # for base in range(2, 26):
 #     polydivisible_numbers(base)
-# print()
+# #print()

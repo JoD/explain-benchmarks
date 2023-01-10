@@ -26,7 +26,7 @@ from instances.cpmpy_hakank import *
 
 def golomb(size=8):
 
-  print("size:",size)
+  #print("size:",size)
 
   var_max = size*size
   all_vars = list(range(0,size))

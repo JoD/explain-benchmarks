@@ -47,7 +47,7 @@ def diff(x, y):
 # A more general model
 #
 def cabling_2(min_val=None):
-  print("min_val:", min_val)
+  #print("min_val:", min_val)
   model = Model()
 
   n = 8

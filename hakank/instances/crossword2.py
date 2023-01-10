@@ -50,12 +50,6 @@ import numpy as np
 from instances.cpmpy_hakank import *
 from collections import defaultdict
 
-def print_solution(A, E, alpha, n, word_len):
-    for ee in range(n):
-        print(f"{ee:2d}: ({E[ee].value():2d})", end=" ")
-        for ii in range(word_len):
-            print(alpha[A[ee,ii].value()],end=" ")
-        print()
 
 def crossword():
 

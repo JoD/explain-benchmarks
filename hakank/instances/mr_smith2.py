@@ -69,7 +69,7 @@ def mr_smith_v2():
 
   ss = CPM_ortools(model)
   num_solutions = ss.solveAll(display=x)
-  print('num_solutions:', num_solutions)
+  #print('num_solutions:', num_solutions)
 
 
 def get_model():

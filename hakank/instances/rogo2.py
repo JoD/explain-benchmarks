@@ -38,17 +38,15 @@ def rogo2(problem, rows, cols, max_steps):
   #
   W = 0
   B = -1
-  print("rows: %i cols: %i max_steps: %i" % (rows, cols, max_steps))
-  print("Problem:")
-  for p in problem:
-    print(p)
+  #print("rows: %i cols: %i max_steps: %i" % (rows, cols, max_steps))
+  #print("Problem:")
     
   problem_flatten = [problem[i][j] for i in range(rows) for j in range(cols)]
   max_point = max(problem_flatten)
-  print("max_point:", max_point)
+  #print("max_point:", max_point)
   max_sum = sum(problem_flatten)
-  print("max_sum:", max_sum)
-  print()
+  #print("max_sum:", max_sum)
+  #print()
 
   #
   # declare variables

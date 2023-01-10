@@ -32,11 +32,11 @@ def union_card(s1,s2,common):
 
 def steiner(n=7,num_sols=1):
   
-  print("n:",n, "num_sols:", num_sols)
+  #print("n:",n, "num_sols:", num_sols)
   nb = int(n*(n-1) // 6)
 
   if not(n % 6 == 1 or n % 6 == 3):
-    print("N must be (1|3) modulo 6")
+    #print("N must be (1|3) modulo 6")
     return()
 
   sets = boolvar(shape=(nb,n),name="sets")

@@ -31,14 +31,6 @@ def nvalue_test(n=5):
     # constraints
     model = Model(nvalue(m,x))
 
-    # model += (m==n) # Force that all values are distinct.
-
-    def print_sol():
-        print("m:",m.value(), "x:",x.value())        
-
-    num_solutions=model.solveAll(display=print_sol)
-    print("num_solutions:", num_solutions)
-
 def get_model():
   n = 5
   return nvalue_test(n)

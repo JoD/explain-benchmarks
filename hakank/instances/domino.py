@@ -46,29 +46,6 @@ def form_domino(a,i,j,r,c):
 #   OBBHMEN5
 #   AA22MGG5
 #
-def print_board2(a,d,rows,cols,dmap):
-  print("\nAnother representation:")
-  n = len(dmap)
-  ddd = {t:i for (t,i) in zip([v[0] for v in dmap],range(n))}
-  s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-  for i in range(rows):
-    for j in range(cols):
-        for ix in range(len(d)):
-            if d[ix] == a[i,j].value(): 
-                # print("%3s (%s)" % (d[ix],dmap[ix]),end=" ")
-                v,ii,jj = dmap[ix]
-                print("%2d-%2d" % (ii,jj) ,end=" ")                
-    print()
-    
-  # Can only manage dmaps of size <= 62, e.g. not the sicstus instance).
-  if n < len(s):
-      print("\nAnd yet another representation:")
-      for i in range(rows):
-          for j in range(cols):
-              print(s[ddd[a[i,j].value()]],end="")
-          print()
-      print()
-  print()
 
 def domino(problem,num_sols=1):
 
@@ -79,7 +56,7 @@ def domino(problem,num_sols=1):
     #
     rows = len(problem)
     cols = len(problem[0])
-    print("rows:",rows, "cols:",cols)
+    #print("rows:",rows, "cols:",cols)
     
     max_val = max([problem[i][j] for i in range(rows) for j in range(cols)])
     

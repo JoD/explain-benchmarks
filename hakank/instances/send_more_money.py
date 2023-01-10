@@ -17,7 +17,7 @@ from instances.cpmpy_hakank import *
 # "Plain algebraic" approach
 #
 def send_more_money():
-    print("send_more_money")
+    #print("send_more_money")
     x = IntVar(0,9,shape=8)
     s,e,n,d,m,o,r,y = x
     constraints = [    (s*1000 + e*100 + n*10 + d) 

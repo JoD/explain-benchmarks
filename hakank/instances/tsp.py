@@ -112,7 +112,7 @@ def get_model():
   E = [ [i,j] for i in range(n) for j in range(n) if i != j ]
 
   # for i in range(num_edges):
-  #   print(E[i])
+  #   #print(E[i])
 
   c=[
     509,501,312,1019,736,656,60,1039,726,2314,479,448,479,619,150,509,126,474,1526,

@@ -45,7 +45,7 @@ def perfect_square_sequence(n=15, print_solutions=True, show_num_sols=0):
     squares = []
     for i in range(1, int(math.sqrt(n*n))):
         squares.append(i*i)
-    # print("squares:", squares, len(squares))
+    # #print("squares:", squares, len(squares))
 
 
     # declare variables

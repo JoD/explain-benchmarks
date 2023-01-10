@@ -50,7 +50,7 @@ def regexp_test(n):
         ]
 
     s = ['k','je','ä','ll','er','ar','st','b','r','a','n','d']
-    # print('n:', n)
+    # #print('n:', n)
 
     #
     # declare variables

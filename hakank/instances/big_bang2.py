@@ -76,7 +76,7 @@ def big_bang2(minimize_val=False):
 
     # objective
     if minimize_val == True:
-        print("Minimizing max_val")
+        #print("Minimizing max_val")
         model = Model(minimize=max_val)
     else:
         model = Model()

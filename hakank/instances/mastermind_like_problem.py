@@ -66,8 +66,8 @@ def mastermind_like_problem():
 
     ss = CPM_ortools(model)
     num_solutions = ss.solveAll(display=x)
-    print("num_solutions: ", num_solutions)
-    print()    
+    #print("num_solutions: ", num_solutions)
+    #print()    
 
 def get_model():
     return mastermind_like_problem()

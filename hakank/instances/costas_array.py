@@ -57,7 +57,7 @@ def costas_array(n=6,print_solutions=True):
   #
   # data
   #
-  print("n:", n)
+  #print("n:", n)
 
   #
   # declare variables

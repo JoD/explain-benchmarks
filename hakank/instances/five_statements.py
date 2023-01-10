@@ -36,7 +36,7 @@ from itertools import combinations
 
 def five_statements(n=5):
 
-    print("n:",n)
+    #print("n:",n)
     x = boolvar(shape=(n,),name="x")
 
     model = Model()

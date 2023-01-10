@@ -107,11 +107,11 @@ class solution_printer(ort.CpSolverSolutionCallback):
     for cpm_var in [self.vars_total_cost]:
       cpm_var._value = self.Value(self.varmap[cpm_var])
        
-    print("x:")
-    print(self.vars_x.value())
-    print("soft_cost:",self.vars_soft_cost.value())    
-    print("total_cost:",self.vars_total_cost.value())
-    print()
+    #print("x:")
+    #print(self.vars_x.value())
+    #print("soft_cost:",self.vars_soft_cost.value())    
+    #print("total_cost:",self.vars_total_cost.value())
+    #print()
 
     if self.num_solutions > 0 and self.solcount >= self.num_solutions:
       self.StopSearch()

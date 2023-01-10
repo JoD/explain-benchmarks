@@ -16,14 +16,14 @@ from instances.cpmpy_hakank import *
 
 
 def magic_square(n=4,num_sols=0,symmetry_breaking=False,num_procs=1):
-    print(f"\n\nn:{n} num_sols:{num_sols}")
+    #print(f"\n\nn:{n} num_sols:{num_sols}")
 
     m = n*n
     x = intvar(1,m,shape=(n, n), name='x')
     x_flat = x.flat
     
     total = math.ceil(n*(m+1)/2)
-    print("total:",total)
+    #print("total:",total)
     
     model = Model (
         [

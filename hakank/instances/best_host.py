@@ -74,7 +74,7 @@ def member_of2(x, val):
 
     Ensures that the value `val` is in the array `x`.
     """
-    print(f"member_of2({x},{val})")
+    #print(f"member_of2({x},{val})")
     constraints = [sum([v == val for v in x]) > 0]    
     return constraints
 

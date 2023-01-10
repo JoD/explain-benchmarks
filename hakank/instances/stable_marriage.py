@@ -30,10 +30,6 @@ from cpmpy.solvers import *
 import sys
 
 
-def print_function(a):
-    print("wife:", a[0].value())
-    print("husband:", a[1].value())
-  
 
 def stable_marriage(problem,num_sols=0,num_procs=1):
 

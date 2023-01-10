@@ -33,7 +33,7 @@ def hamming_distance_model(a_given="",n=6):
   diffs = intvar(0,n,name="diffs") # The number of differences 
 
   if a_given != "":
-    print("a_given:", a_given)
+    #print("a_given:", a_given)
     n = len(a_given)
   
     for i in range(n):

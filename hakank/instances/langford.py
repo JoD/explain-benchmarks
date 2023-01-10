@@ -74,7 +74,7 @@ def langford(k=8, num_sols=0):
   #
   
   if not (k % 4 == 0 or k % 4 == 3):
-    print("There is no solution for K unless K mod 4 == 0 or K mod 4 == 3")
+    #print("There is no solution for K unless K mod 4 == 0 or K mod 4 == 3")
     return
   p = list(range(2 * k))
 

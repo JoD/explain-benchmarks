@@ -47,7 +47,7 @@ def autoref(s):
   return [global_cardinality_count(s,s)]
 
 def autoref_model(n=27,m=5):
-  print("n:",n,"m:",m)
+  #print("n:",n,"m:",m)
 
   # variables
   s = intvar(0,n,shape=n+2,name="s")

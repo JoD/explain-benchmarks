@@ -25,7 +25,7 @@ def pigeon_hole(n=3,m=10):
 
   # variables
   p = boolvar(shape=(n,m),name="p")
-  print("p:",p)
+  #print("p:",p)
 
   # max 1 pigeon per pigeon hole
   for j in range(m):

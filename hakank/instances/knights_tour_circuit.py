@@ -35,9 +35,7 @@ def extract_tour(x):
         tour[i][j] = k
         next = x[i,j]
         k += 1
-    print("Tour:")
-    for row in tour:
-        print(row)
+    
 
 def knights_tour_circuit(n=4,num_sols=0):
 

@@ -36,14 +36,14 @@ def picking_teams(s):
     n = len(s)
     n2 = math.ceil(n / 2)
     
-    # print("s:",s)
+    # #print("s:",s)
     
     s_sum = sum(s)
 
     count = [n2,n2]
 
-    print("s_sum:",s_sum)
-    print("s_sum % 2:", s_sum % 2)
+    #print("s_sum:",s_sum)
+    #print("s_sum % 2:", s_sum % 2)
 
     x = intvar(1,2,shape=n,name="x")
 

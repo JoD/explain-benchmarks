@@ -30,8 +30,6 @@ def get_overlays(n=3, debug=0):
     ss.ort_solver.parameters.linearization_level = 0
     ss.ort_solver.parameters.cp_model_probing_level = 0
 
-    print("\nFind overlay ", end="",flush=True)
-
     overlays = []
     def print_sol():
       overlays.append(x.value())
@@ -52,40 +50,8 @@ def all_problems(n = 3, debug = 0):
         [ sum(col) >= 1 for col in x.transpose()], 
         )
 
-    problems = []
-    ss = CPM_ortools(model)
-    while ss.solve(): 
-        if debug:
-            print("x2:",x)
-        problems.append([[x[i,j].value() for i in range(n)] for j in range(n) ])
-
-    return problems
+    return model
     
-
-# print a solution
-def print_solution(x, overlays):
-    f = len(x)
-    n = len(overlays[0])
-    print("f:",f, " n: ", n)
-    for o in range(f):
-        if x[o].value() == 1:
-            print("overlay", o)
-            for i in range(n):
-                for j in range(n):
-                    print( overlays[o][i][j], " ",end="")
-                print()
-            print()
-
-
-# print a problem
-def print_problem(problem, n):
-    print("Problem:")
-    for i in range(n):
-        for j in range(n):
-            print(problem[i][j], end=" ")
-        print()
-    print()
-            
 
 #
 # This solves a problem instance
@@ -123,8 +89,6 @@ def ormat_game(problem, overlays, n, debug=0):
             if problem[i][j] == 0:
                 model += [y[i,j] == 0]
 
-    if debug:
-        print(model)
 
     return model
 

@@ -82,8 +82,6 @@ from cpmpy.solvers import *
 from instances.cpmpy_hakank import *
 
 def consecutive_integers_problem(n=12,m=None,symmetry_breaking=True,num_sols=0,print_solutions=True):
-    if print_solutions:
-        print("\nn:",n,"m:",m)
 
     # decision variables
     x     = intvar(0,m-1,shape=(n,),name="x")
@@ -110,6 +108,6 @@ def get_model(seed=0):
   
   import random
   random.seed(seed)
-  random.choice(list(m for m in range(1,1+(n // 3))))
+  m = random.choice(list(mi for mi in range(1,1+(n // 3))))
 
-  return  consecutive_integers_problem(n,m)
+  return  consecutive_integers_problem(n, m)

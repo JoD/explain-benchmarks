@@ -33,7 +33,7 @@ from instances.cpmpy_hakank import *
 
 def model_17_b(nb_rows=10,nb_columns=10,nb_colors=4,num_sols=0,num_procs=1):
     
-    print(nb_rows,"x", nb_columns, "x", nb_colors, "num_sols:", num_sols, "num_procs:",num_procs)
+    #print(nb_rows,"x", nb_columns, "x", nb_colors, "num_sols:", num_sols, "num_procs:",num_procs)
     
     space = intvar(0,nb_colors-1,shape=(nb_rows,nb_columns),name="space")
 

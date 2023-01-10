@@ -46,7 +46,7 @@ def global_contiguity(x,start,end):
 
 
 def global_contiguity_test(n=4):
-  print("n:",n)
+  #print("n:",n)
   
   x = boolvar(shape=n,name="x")
   start = intvar(0,n-1,name="start")

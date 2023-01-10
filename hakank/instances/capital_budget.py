@@ -42,23 +42,21 @@ def capital_budget(cons=None):
   #
   # the extra constraints
   #
-  if cons == None:
-    print("No extra constraint")
 
   # only two investments
   if cons == 0:
-    print("extra constraint: only two investments")
+    #print("extra constraint: only two investments")
     model += (sum(x) == 2)
 
   # if investment 2 -> investment 1
   if cons == 1:
-    print("extra constraint: if investment 2 -> investment 1")
+    #print("extra constraint: if investment 2 -> investment 1")
     model += (x[1]).implies(x[0] == 1),
     # model += x[0] >= x[1],  # alternative (Integer Programming) way 
 
   # if investment 2 then not investment 4
   if cons == 2:
-    print("extra constraint: if investment 2 -> not investment 4")
+    #print("extra constraint: if investment 2 -> not investment 4")
     model += (x[1] == 1).implies(x[3] == 0),
     # model += (x[3] + x[1] <= 1),  # IP way
 

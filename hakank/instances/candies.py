@@ -56,12 +56,8 @@ from instances.cpmpy_hakank import *
 
 
 def candies(input=[1,2,2]):
-    
-  
-
   n = len(input)
-  if n < 100:
-    print(input)
+
 
   # variables
   x = intvar(1,n,shape=n,name="x")
@@ -82,10 +78,6 @@ def candies(input=[1,2,2]):
 
   return model
 
-
 def get_model():
-
-
   n = 10**4
-  print("n:", n)
   return candies([random.randint(1,n) for i in range(n)])

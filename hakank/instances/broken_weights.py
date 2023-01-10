@@ -36,9 +36,9 @@ from instances.cpmpy_hakank import *
 def broken_weights(m=40, n=4):
 
   # data
-  print('total weight (m):', m)
-  print('number of pieces (n):', n)
-  print()
+  #print('total weight (m):', m)
+  #print('number of pieces (n):', n)
+  #print()
 
   # variables
   weights = intvar(1,m, shape=n,name="weights")

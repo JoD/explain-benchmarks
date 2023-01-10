@@ -135,7 +135,7 @@ from instances.cpmpy_hakank import *
 #
 def frog_circle(n=12,print_solutions=True,increasing_visits=False):
 
-    print("n:",n)
+    #print("n:",n)
   
     # declare variables
     x       = intvar(1,n,shape=(n,),name="x")
@@ -186,11 +186,11 @@ def get_model():
     return frog_circle(12)
 
 # Just print the number of solutions
-# print("N   #sols")
-# print("---------")
+# #print("N   #sols")
+# #print("---------")
 # for n in range(1,20+1):
 #     if n == 1 or n % 2 == 0: 
-#         print(f"{n:2d}  {frog_circle(n,False):4d}")
+#         #print(f"{n:2d}  {frog_circle(n,False):4d}")
 
 ## Algorithmic approach for some numbers
 # for n in range(1,20+1):

@@ -25,7 +25,7 @@ def sequence_test():
 
     # length of the sequence
     seq_length = 3 
-    print("seq_length:",seq_length)
+    #print("seq_length:",seq_length)
 
     # decision variables
     x = intvar(1,n,shape=n,name="x")

@@ -59,7 +59,7 @@ def prec(x, y, s, d):
 
 
 def building_a_house(min_var="makespan"):
-  print("min_var :",min_var)
+  #print("min_var :",min_var)
 
   num_tasks = 10
 

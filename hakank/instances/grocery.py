@@ -43,7 +43,7 @@ def grocery():
 
   ss = CPM_ortools(model)
   num_solutions = ss.solveAll(display=item)
-  print("num_solutions:", num_solutions)
+  #print("num_solutions:", num_solutions)
 
 def get_model():
   return grocery()
