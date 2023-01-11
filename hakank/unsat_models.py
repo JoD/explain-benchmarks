@@ -33,6 +33,7 @@ def gen_all_instances(n=5, seed=0, p=0.05, output_dir=None, verbose=True):
     models = []
     all_models = list(ALL_HAKANK_MODELS)
     selected_models = sorted(random.sample(all_models, k=min(n, len(ALL_HAKANK_MODELS))), key=lambda x: str(x))
+    print(selected_models)
 
     for count, model_name in enumerate(selected_models):
         if count >= n:
@@ -61,10 +62,6 @@ def gen_all_instances(n=5, seed=0, p=0.05, output_dir=None, verbose=True):
     ## saving model in directory
     return models
 
-
-
-
-
 def main(args):
     if args.seed == 0:
         print("Defaulting to seed=0")
@@ -74,9 +71,11 @@ def main(args):
     num_models = args.num
     verbose = args.verbose
     output_dir = args.output_directory
+    unsat_prob = args.unsat_prob
     gen_all_instances(
         n=num_models,
         seed=seed,
+        p=unsat_prob,
         output_dir=output_dir,
         verbose=verbose)
 
@@ -89,6 +88,7 @@ if __name__== "__main__":
     parser.add_argument('-s', '--seed', dest="seed", type=int, help="Seed number for random module", default=0)
     # parser.add_argument('-m', '--model', dest="model", type=str, help=f"Select models from [{list(ALL_HAKANK_MODELS)}]", default=None)
     parser.add_argument('-n', '--num', dest="num", type=int, help="NUmber of unsat models to generate", default=300)
+    parser.add_argument('-p', '--probability', dest="unsat_prob", type=float, help="NUmber of unsat models to generate", default=0.05)
     parser.add_argument('-v', dest='verbose', help="verbosity", default=True)
     args = parser.parse_args()
     main(args)

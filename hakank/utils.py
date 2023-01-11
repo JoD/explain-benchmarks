@@ -5,7 +5,7 @@ from cpmpy.transformations.flatten_model import flatten_model
 import random
 import numpy as np
 
-def make_unsat_model(model, p=0.05, max_steps=1):
+def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
     """Modify given model to an unsat one while recursing through
     the expressions. The default probability of modifying an expression is
     0.05.
@@ -17,6 +17,11 @@ def make_unsat_model(model, p=0.05, max_steps=1):
     Returns:
         _type_: _description_
     """
+    ## Ensure it's a flattened model, easier iteration over constraints
+    if not model.solve(time_limit=60):
+        raise TimeoutError()
+    flattened_model = flatten_model(model)
+
     ## Introduce mistakes non-trivially
     ## Random instance selection
     swapping_functions = {
@@ -24,12 +29,12 @@ def make_unsat_model(model, p=0.05, max_steps=1):
         "swap_operator": swap_operator,
         # "swap_indexes_offsets": swap_indexes_offsets, 
         "swap_variables": swap_variables,
-        "swap_order_variables": swap_order_variables,
+        "shuffle_variables": shuffle_variables,
         # "change_constraint": change_constraint,
     }
 
-    all_constraints = model.constraints
-    model_variables = get_variables_model(model)
+    all_constraints = flattened_model.constraints
+    model_variables = get_variables_model(flattened_model)
     k=max(1, int(round(p*len(all_constraints))))
 
     # has_globals = any(isinstance(c, cp.expressions.globalconstraints.GlobalConstraint) for c in all_constraints)
@@ -47,44 +52,124 @@ def make_unsat_model(model, p=0.05, max_steps=1):
         selected_constraints = set(random.sample(all_constraints, k=k ))
         remaining_constraints = set(all_constraints) - selected_constraints
 
-        print(f"\n\t selected constraints [{len(selected_constraints)}/{len(all_constraints)}]=", "\n\t\t- ".join(str(c) for c in selected_constraints))
-        print(f"\n\t remaining constraints [{len(remaining_constraints)}/{len(all_constraints)}]", "\n\t\t- ".join(str(c) for c in remaining_constraints))
+        for i, c in enumerate(selected_constraints):
 
-        for c in selected_constraints:
-            swapping_fun = random.choice(list(swapping_functions))
-            swapped_constraint = swapping_functions[swapping_fun](c, model_variables)
+            print(f"changing constraints [{i+1}/{len(selected_constraints)}]:")
+            print("\t", c)
+            if isinstance(c, cp.expressions.globalconstraints.GlobalConstraint): 
+                print("\t\t GLOBAL")
+                swapped_constraint = swap_variables(c, model_variables, k)
+            # elif 
+            else:
+                swapping_fun = random.choice(list(swapping_functions))
+                swapped_constraint = swapping_functions[swapping_fun](c, model_variables)
+                print("\t\t", swapping_fun)
+
+            print("\t", swapped_constraint)
             remaining_constraints.add(swapped_constraint)
 
         all_constraints = list(remaining_constraints)
+
         steps += 1
 
     return cp.Model(all_constraints)
 
-def swap_variables_global(expr, variables):
-    v = get_variables(expr)
-    print("swap_variables_global")
-    print("\t- expr", expr)
+def shuffle_variables(expr, variables):
+    if expr.name in ["==", "!="]:
+        return swap_operator(expr, variables)
+    if len(expr.args) > 1:
+        random.shuffle(expr.args)
     return expr
 
-def swap_variables(expr, variables):
-    print("swap_variables")
-    print("\t- expr", expr)
+def swap_variables(expr, variables, k=1):
+    expr_vars = get_variables(expr)
+    if expr.name == "wsum":
+        return replace_wsum(expr, variables)
+
+    idx_to_replace = random.sample(list(range(len(expr.args))), k)
+
+    for id, i in enumerate(idx_to_replace):
+        ## get variables of same type
+        if isinstance(expr.args[i], (int)):
+            v = random.choice(expr_vars)
+            val = random.randint(v.lb, v.ub)
+            expr.args[i] = val
+        ### replace variables
+        elif isinstance(expr.args[i], cp.variables._NumVarImpl):
+            vars_to_select = [v for v in variables if type(v) == type(expr.args[i])]
+            vars_to_replace = random.sample(vars_to_select, k)
+            expr.args[i] = vars_to_replace[id]
+        ## not handling expressions
+        else:
+            expr.args[i] = swap_variables(expr.args[i], variables, k)
+
     return expr
 
-def swap_operator(expr, variables):
-    print("swap_operator")
-    print("\t- expr", expr)
-    
+def is_math_op(expr):
+    return expr.name in ["+", "-", "*"]
+
+def replace_math_op(expr):
+    all_ops = ["+", "-", "*"]
+    all_ops.remove(expr.name)
+    expr.name = random.choice(all_ops)
     return expr
 
-def change_constraint(expr, variables):
-    print("change_constraint")
-    print("\t- expr", expr)
+def swap_operator(expr, variables, p=0.5):
+    if not isinstance(expr, cp.variables._NumVarImpl) and any(isinstance(arg, (cp.expressions.core.Comparison, cp.expressions.core.Operator)) for arg in expr.args) and random.random() < p:
+        idx = random.randint(0, len(expr.args) - 1)
+        expr.args[idx] = swap_operator(expr.args[idx], variables, p)
+        return expr
+
+    if is_relational_constraint(expr):
+        new_expr = replace_relational_constraint(expr)
+    elif is_and_or(expr):
+        new_expr = replace_and_or(expr)
+    elif is_eq(expr):
+        new_expr = replace_eq(expr)
+    elif expr.name == "wsum":
+        new_expr = replace_wsum(expr, variables)
+    elif is_math_op(expr):
+        new_expr = replace_math_op(expr)
+    elif isinstance(expr, cp.variables._BoolVarImpl):
+        return expr
+    else:
+        print("expr not handled!", expr.name, expr.args)
+        new_expr = expr
+    return new_expr
+
+
+def replace_wsum(expr, variables, p=0.5):
+    assert expr.name == "wsum", "Ensure it's a wsum"
+    expr_weights, expr_vars = expr.args
+    for i, v in enumerate(expr_vars):
+        if random.random() < p and isinstance(v, cp.variables._IntVarImpl):
+            vars_to_select = [vi for vi in variables if type(vi) == v]
+            expr_vars[i] = random.choice(vars_to_select)
+    return cp.expressions.core.Operator("wsum", [expr_weights, expr_vars])
+
+def is_relational_constraint(expr):
+    return expr.name in [">", ">=", "<", "<="]
+
+def replace_relational_constraint(expr):
+    all_ops = [">", ">=", "<", "<="]
+    all_ops.remove(expr.name)
+    expr.name = random.choice(all_ops)
     return expr
 
-def swap_indexes_offsets(expr, variables):
-    print("swap_indexes_offsets")
-    print("\t- expr", expr)
+def is_and_or(expr):
+    return expr.name in ["and", "or", "->"]
+
+def is_eq(expr):
+    return expr.name in ["!=", "=="]
+
+def replace_eq(expr):
+    expr.name = "!=" if (expr.name == "==") else "=="
+    return expr
+
+def replace_and_or(expr):
+    all_ops = ["and", "or", "->"]
+    all_ops.remove(expr.name)
+    expr.name = random.choice(all_ops)
     return expr
 
 def model_sudoku(dim=9):
@@ -134,5 +219,5 @@ def model_sudoku(dim=9):
 
 
 if __name__=="__main__":
-    sudoku_model = flatten_model(model_sudoku(4))
-    make_unsat_model(sudoku_model, p=0.2)
+    sudoku_model = model_sudoku(9)
+    make_unsat_model(sudoku_model, p=0.05)
