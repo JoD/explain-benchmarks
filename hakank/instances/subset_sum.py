@@ -36,11 +36,10 @@ def subset_sum(values, total):
     return model, x, ss
 
 def subset_sum_model(coins, total):
-
     model, x, ss = subset_sum(coins, total)
     return model
 
 def get_model(seed=0):
     coins = [16, 17, 23, 24, 39, 40]
     total = 100
-    return subset_sum(coins, total)
+    return subset_sum_model(coins, total)

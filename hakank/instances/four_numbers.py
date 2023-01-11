@@ -73,4 +73,4 @@ def get_model(seed=0):
     nums = rand_nums(7,10)
     n = min([3,len(nums)-1])
 
-    four_numbers(nums,n,10)
+    return four_numbers(nums,n,10)

@@ -70,4 +70,4 @@ def arch_friends():
   return model
 
 def get_model(seed=0):
-  arch_friends()
+  return arch_friends()

@@ -63,6 +63,7 @@ def mastermind_like_problem():
               sum([x[c] == a[2][d] for c in range(cols) for d in range(cols)]) == 2, # 2 numbers are correct
               sum([x[c] == a[3][d] for c in range(cols) for d in range(cols)]) == 2  # 2 numbers are correct
               ]
+    return model
 
 def get_model(seed=0):
     return mastermind_like_problem()

@@ -30,7 +30,7 @@ def least_diff2():
        f > 0,
        res > 0,
    ],minimize=res)
-   ss = CPM_ortools(model)
+   return model
 
 def get_model(seed=0):
     return least_diff2()

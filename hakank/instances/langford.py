@@ -72,10 +72,7 @@ def langford(k=8, num_sols=0):
   #
   # data
   #
-  
-  if not (k % 4 == 0 or k % 4 == 3):
-    #print("There is no solution for K unless K mod 4 == 0 or K mod 4 == 3")
-    return
+
   p = list(range(2 * k))
 
   # variables
@@ -88,7 +85,7 @@ def langford(k=8, num_sols=0):
   for i in range(1, k + 1):
     model += [position[i+k-1] == position[i-1]+i+1]
     model += [i == solution[position[i-1]]]
-    model += [i == solution[position[k+i-1] ]]        
+    model += [i == solution[position[k+i-1] ]]
 
   # symmetry breaking
   model += [solution[0] < solution[2 * k - 1]]
@@ -101,6 +98,5 @@ def get_model(seed=0):
   """
   import random
   random.seed(seed)
-  k = int(random.uniform(8, 200))
-  return langford(k)
-  # benchmark()
+  langford_size = random.choice([k for k in range(8, 200) if k % 4 == 0 or k % 4 == 3])
+  return langford(langford_size)

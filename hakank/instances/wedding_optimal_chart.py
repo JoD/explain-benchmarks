@@ -84,13 +84,13 @@ from cpmpy.solvers import *
 from instances.cpmpy_hakank import *
 
 
-def wedding_optimal_chart(guest,names,names2,problem,opt_type="maximize"):
+def wedding_optimal_chart(guests,names,names2,problem,opt_type="maximize"):
 
     max_num_tables = problem["max_num_tables"]
     max_at_table   = problem["max_at_table"]
     min_knows_at_table = problem["min_knows_at_table"]
 
-    m = len(guest)
+    m = len(guests)
 
     n = max_num_tables
     a = max_at_table
@@ -232,6 +232,9 @@ def get_model(seed=0):
     }
 
     opt_type = "maximize"
+    import random
+    random.seed(seed)
+    p = random.choice(list(problems))
     # opt_type = "minimize"
-    for p in problems:
-        yield wedding_optimal_chart(guests,names,names2,problems[p],opt_type)
+
+    return wedding_optimal_chart(guests,names,names2,problems[p],opt_type)

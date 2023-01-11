@@ -66,6 +66,7 @@ def mr_smith_v2():
   # If Matt comes /\ then John and his father will also come.
   # (Matt -> (John /\ Mr_Smith))
   model += [Matt.implies(John & Mr_Smith)]
+  return model
 
 def get_model(seed=0):
   return mr_smith_v2()

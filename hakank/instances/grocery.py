@@ -40,6 +40,7 @@ def grocery():
 
   # symmetry breaking
   model += [increasing(item)]
+  return model
 
 def get_model(seed=0):
   return grocery()

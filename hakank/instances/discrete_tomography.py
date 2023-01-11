@@ -88,4 +88,4 @@ def get_model(seed=0):
     random.seed(seed)
     file = random.choice(all_files)
     [row_sums, col_sums] = read_problem(base_path + file)
-    discrete_tomography(row_sums, col_sums)    
+    return discrete_tomography(row_sums, col_sums)    

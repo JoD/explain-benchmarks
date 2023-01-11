@@ -15,6 +15,7 @@ import sys
 import traceback
 from pathlib import Path
 
+import cpmpy as cp
 from cpmpy.transformations.get_variables import get_variables_model
 from instances import ALL_HAKANK_MODELS
 
@@ -41,6 +42,7 @@ def gen_all_instances(n=5, seed=0, p=0.05, output_dir=None, verbose=True):
         try:
             ## generate a model
             model = ALL_HAKANK_MODELS[model_name](seed=seed)
+            assert isinstance(model, cp.Model), f"type({model}) be an CPMpy Model"
             ## make model unsat with certain probability
             # unsat_model = make_unsat_model(model, p)
             if output_dir:
