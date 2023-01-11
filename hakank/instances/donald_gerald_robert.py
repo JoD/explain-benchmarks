@@ -28,6 +28,6 @@ def donald_gerald_robert_v1():
     return model
 
 
-def get_model():
+def get_model(seed=0):
     return donald_gerald_robert_v1()
 

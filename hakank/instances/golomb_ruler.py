@@ -73,6 +73,6 @@ def golomb(size=8):
  
   return model
 
-def get_model():
+def get_model(seed=0):
   size = 8
   return golomb(size)

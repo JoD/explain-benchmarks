@@ -56,7 +56,7 @@ def number_of_days(target_days=13):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   target_days = 13
   return number_of_days(target_days)
 

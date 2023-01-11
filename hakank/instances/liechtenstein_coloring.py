@@ -191,5 +191,5 @@ def liechtenstein_coloring():
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return liechtenstein_coloring()

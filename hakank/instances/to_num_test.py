@@ -30,5 +30,5 @@ def to_num_test(n=4,base=10):
   
   return model
 
-def get_model():
+def get_model(seed=0):
   return to_num_test(4,10)

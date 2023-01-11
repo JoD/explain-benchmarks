@@ -91,5 +91,5 @@ def number_puzzle8(num_sols=0):
     return model
     
 
-def get_model():
+def get_model(seed=0):
   return number_puzzle8()

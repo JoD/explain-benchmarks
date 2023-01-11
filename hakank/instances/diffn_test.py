@@ -38,5 +38,5 @@ def diffn_test():
         model += (y[i] + a[i] <= n+1)
 
     return model
-def get_model():
+def get_model(seed=0):
     return diffn_test()

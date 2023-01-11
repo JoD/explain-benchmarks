@@ -142,6 +142,6 @@ def handshaking(n=10,symmetry=False,num_sols=0,print_solutions=True):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 10
   return handshaking(n, symmetry=True)

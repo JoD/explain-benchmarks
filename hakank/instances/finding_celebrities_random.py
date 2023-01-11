@@ -74,7 +74,7 @@ def finding_celebrities(problem):
 
 def get_model(seed=0):
   random.seed(seed)
-  problem = random_01_graph(10, seed)
+  problem = random_01_graph(10)
   return finding_celebrities(problem)
 
 

@@ -64,5 +64,5 @@ def contiguity_regular(n=7,num_sols=0,minizinc_solver=None):
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return contiguity_regular(7)

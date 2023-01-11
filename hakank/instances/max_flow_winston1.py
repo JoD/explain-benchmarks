@@ -89,5 +89,5 @@ def max_flow_winston1():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return max_flow_winston1()

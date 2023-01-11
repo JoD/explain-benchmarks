@@ -67,7 +67,7 @@ def debruijn(base=2, n=3, m=0):
 
 
 
-def get_model():
+def get_model(seed=0):
     base   = 2
     n      = 3
     m      = base**n

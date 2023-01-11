@@ -62,5 +62,5 @@ def furniture_moving():
     model += [end_time <= 60]
     return model
     
-def get_model():
+def get_model(seed=0):
     return furniture_moving()

@@ -78,7 +78,7 @@ def polydivisible_numbers(n=10):
   return model
 
 
-def get_model():
+def get_model(seed=0):
   base = 10
   
   return polydivisible_numbers(base)

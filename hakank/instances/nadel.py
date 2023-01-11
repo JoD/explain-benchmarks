@@ -168,6 +168,6 @@ def nadel(total_broken_val=None):
  
   return model
 
-def get_model():
+def get_model(seed=0):
   return nadel()
 

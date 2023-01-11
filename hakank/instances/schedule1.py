@@ -56,5 +56,5 @@ def scheduling1():
   model += [my_cumulative(starts, duration, resource, capacity)]
   return model
 
-def get_model():
+def get_model(seed=0):
   return scheduling1()

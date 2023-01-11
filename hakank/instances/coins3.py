@@ -52,7 +52,7 @@ def coins3(denominations=[1, 2, 5, 10, 25, 50],num_coins_val=0):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   
   denominations=[1, 2, 5, 10, 25, 50]
   # denominations=[1, 5, 10, 25, 50]

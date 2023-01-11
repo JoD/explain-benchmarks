@@ -74,6 +74,5 @@ def giant_cat_army_riddle(n=60):
 def get_model(seed=0):
   import random
   random.seed(seed)
-  n = list(round(random.uniform(5, 59)))
+  n = int(round(random.uniform(5, 59)))
   return giant_cat_army_riddle(n)
-  

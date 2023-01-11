@@ -65,6 +65,6 @@ def knights_tour_circuit(n=4,num_sols=0):
 def get_model(seed=0):
     import random
     random.seed(seed)
-    n = random.choice(list(ni for ni in range(6,10+1) if n % 2 == 0))
+    n = random.choice(list(ni for ni in range(6,10+1) if ni % 2 == 0))
     return    knights_tour_circuit(n,1)
 

@@ -30,5 +30,5 @@ def remainder_problem2():
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return remainder_problem2()

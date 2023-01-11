@@ -30,6 +30,11 @@ import cpmpy.solvers
 import numpy as np
 from instances.cpmpy_hakank import *
 import random
+import instances.strimko2_002 as strimko2_002
+import instances.strimko2_067 as strimko2_067
+import instances.strimko2_068 as strimko2_068  
+import instances.strimko2_069 as strimko2_069 
+import instances.strimko2_070 as strimko2_070
 
 
 def strimko2(streams='', placed=''):
@@ -84,13 +89,13 @@ def strimko2(streams='', placed=''):
   return model
 
 def get_model(seed=0):
-  problem_files = [
-    "strimko2_002.py",
-    "strimko2_067.py",
-    "strimko2_068.py",
-    "strimko2_069.py",
-    "strimko2_070.py"
-  ]
-  problem_file = random.choice(problem_files)
-  exec(compile(open(problem_file).read(), problem_file, 'exec'))
+  problem_files = {
+    "strimko2_002":strimko2_002.get_instance,
+    "strimko2_067":strimko2_067.get_instance,
+    "strimko2_068":strimko2_068.get_instance,
+    "strimko2_069":strimko2_069.get_instance,
+    "strimko2_070":strimko2_070.get_instance
+  }
+  problem_file = random.choice(list(problem_files))
+  streams, placed = problem_files[problem_file]()
   return strimko2(streams, placed)

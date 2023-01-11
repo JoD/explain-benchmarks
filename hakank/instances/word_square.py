@@ -36,23 +36,7 @@ def get_dict():
     return d, rev
     
 
-def word_square(word_len = 5, num_sols = 3):
-
-    word_dict = "/usr/share/dict/words"
-
-    if len(sys.argv) > 1:
-        word_dict = sys.argv[1]
-    if len(sys.argv) > 2:
-        word_len = int(sys.argv[2])
-    if len(sys.argv) > 3:
-        limit = int(sys.argv[3])
-    if len(sys.argv) > 4:
-        num_sols = int(sys.argv[4])
-
-    words = read_words(word_dict, word_len)
-    #print("It was", len(words), "words")
-    word_square(words, word_len,num_sols)
-
+def word_square(words, word_len = 5):
     num_words = len(words)
     n = word_len
     d, rev = get_dict()
@@ -75,7 +59,7 @@ def word_square(word_len = 5, num_sols = 3):
             model += [A[E[i],j] == A[E[j],i]]
 
 
-    return model 
+    return model
 
 def read_words(word_list, word_len):
     dict = {}
@@ -91,5 +75,10 @@ def read_words(word_list, word_len):
     return all_words
 
 
-def get_model():
-    return word_square()
+def get_model(seed=0):
+    import random
+    random.seed(seed)
+    word_len = int(round(random.uniform(5, 9)))
+    word_dict = "/usr/share/dict/words"
+    words = read_words(word_dict, word_len)
+    return word_square(words, word_len=word_len)

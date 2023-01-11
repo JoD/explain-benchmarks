@@ -49,7 +49,7 @@ def coins_grid(n, c):
 
     return model
 
-def get_model():
+def get_model(seed=0):
     n = 31
     c = 14
     return coins_grid(n, c)

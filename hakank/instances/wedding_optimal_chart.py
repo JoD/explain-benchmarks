@@ -125,7 +125,7 @@ def wedding_optimal_chart(guest,names,names2,problem,opt_type="maximize"):
 
     return model
 
-def get_model():
+def get_model(seed=0):
     #
     # Data
     #

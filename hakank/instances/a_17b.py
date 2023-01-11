@@ -52,7 +52,7 @@ def model_17_b(nb_rows=10,nb_columns=10,nb_colors=4,num_sols=0,num_procs=1):
 
     return model
 
-def get_model():
+def get_model(seed=0):
     nb_rows    = 13
     nb_columns = 13
     nb_colors  = 4

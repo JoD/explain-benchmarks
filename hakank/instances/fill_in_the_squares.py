@@ -187,5 +187,5 @@ def fill_in_the_squares():
 
     return model
 
-def get_model():
+def get_model(seed=0):
   return fill_in_the_squares()

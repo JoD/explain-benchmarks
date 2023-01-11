@@ -91,9 +91,10 @@ def read_problem(file):
     return [game, n]
 
 def get_model(seed=0):
-    import random
+    import os, random
     random.seed(seed)
     p = int(round(random.uniform(1, 9)))
+    base_path = os.path.realpath(__file__).replace('quasigroup_completion.py', '')
     
-    [game, n] = read_problem("quasigroup" +str(p) + ".txt")
+    [game, n] = read_problem(base_path + "quasigroup" +str(p) + ".txt")
     return quasigroup_completion(game, n)

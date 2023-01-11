@@ -28,5 +28,5 @@ def rabbit():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return rabbit()

@@ -62,6 +62,6 @@ def five_brigands():
     return model
 
 
-def get_model():
+def get_model(seed=0):
     return five_brigands()
 

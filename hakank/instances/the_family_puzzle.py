@@ -80,5 +80,5 @@ def the_family_puzzle():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return the_family_puzzle()

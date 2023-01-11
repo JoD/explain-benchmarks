@@ -114,7 +114,7 @@ def matrix_element_test(problem,method="matrix_element"):
     return model
     
 
-def get_model():
+def get_model(seed=0):
     # This is a fairly simple Hidato instance
     # (See hidato.py for other instances)
     problem = [[0,44,41, 0, 0, 0, 0],

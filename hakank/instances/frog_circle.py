@@ -182,7 +182,7 @@ def frog_circle(n=12,print_solutions=True,increasing_visits=False):
 
 
 # Print all solutions for n=12
-def get_model():
+def get_model(seed=0):
     return frog_circle(12)
 
 # Just print the number of solutions

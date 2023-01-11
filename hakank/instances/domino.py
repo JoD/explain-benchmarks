@@ -109,7 +109,7 @@ def domino(problem,num_sols=1):
 
     return model
 
-def get_model():
+def get_model(seed=0):
     sicstus111 = [
             [1,4,4,8,2,8,3,2,9,11,10,1,7],
             [7,0,2,8,8,9,11,0,0,10,5,2,0],

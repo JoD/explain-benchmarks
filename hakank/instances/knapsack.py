@@ -19,7 +19,7 @@ def knapsack_model(values, weights, n):
     [model, x, z] = knapsack(values, weights, n)
     return model
 
-def get_model():
+def get_model(seed=0):
     values =  [15, 100, 90, 60, 40, 15, 10,  1, 12, 12, 100]
     weights = [ 2,  20, 20, 30, 40, 30, 60, 10, 21, 12,   2]
     n = 102

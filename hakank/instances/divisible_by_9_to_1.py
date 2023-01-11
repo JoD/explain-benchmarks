@@ -57,5 +57,5 @@ def divisible_by_9_to_1(base=10,print_model=False):
 def get_model(seed=0):
   import random
   random.seed(seed)
-  base= random.choice(b for b in range(3,16+1))
+  base= random.choice([b for b in range(3,16+1)])
   return divisible_by_9_to_1(base)

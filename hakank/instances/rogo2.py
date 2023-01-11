@@ -102,7 +102,7 @@ def rogo2(problem, rows, cols, max_steps):
   return model
 
 
-def get_model():
+def get_model(seed=0):
   # Default problem:
   # Data from
   # Mike Trick: "Operations Research, Sudoko, Rogo, and Puzzles"

@@ -51,7 +51,7 @@ def permutation3_test(n=5):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 4
   return permutation3_test(n)
 

@@ -67,6 +67,6 @@ def sicherman_dice(min_val=0):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return sicherman_dice(1)
 

@@ -90,6 +90,6 @@ def cabling_2(min_val=None):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return cabling_2()
 

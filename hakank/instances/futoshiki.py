@@ -66,7 +66,7 @@ def futoshiki(values, lt):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   #
   # Example from Tailor model futoshiki.param/futoshiki.param
   # Solution:

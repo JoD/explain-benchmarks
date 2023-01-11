@@ -34,6 +34,6 @@ def least_diff3():
 
 
 #print("\nv3:")
-def get_model():
+def get_model(seed=0):
     return least_diff3()
 

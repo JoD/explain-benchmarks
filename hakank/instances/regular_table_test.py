@@ -53,5 +53,5 @@ def regular_table_test():
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return regular_table_test()

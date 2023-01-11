@@ -68,7 +68,7 @@ def chain_test(n):
   
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 5
   return chain_test(n)
 

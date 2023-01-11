@@ -14,7 +14,7 @@ from cpmpy import *
 import numpy as np
 from instances.cpmpy_hakank import *
 
-def get_model():
+def get_model(seed=0):
     return xkcd()
 
 def xkcd(price=[215, 275, 335, 355, 420, 580],z=1505):

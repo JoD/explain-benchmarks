@@ -82,5 +82,5 @@ def fixed_charge():
     model.maximize(z)
     return model
 
-def get_model():
+def get_model(seed=0):
     return fixed_charge()

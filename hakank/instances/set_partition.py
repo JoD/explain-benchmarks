@@ -104,7 +104,7 @@ def set_partition_model(n=16, num_sets=2):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   num_sets = 2
   n = 16
   return set_partition_model(n, num_sets)

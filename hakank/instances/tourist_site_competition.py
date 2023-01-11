@@ -79,5 +79,5 @@ def tourist_site_competition():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return tourist_site_competition()

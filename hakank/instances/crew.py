@@ -116,5 +116,5 @@ def crew(num_sols=1):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return crew()

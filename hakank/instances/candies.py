@@ -78,6 +78,6 @@ def candies(input=[1,2,2]):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 10**4
   return candies([random.randint(1,n) for i in range(n)])

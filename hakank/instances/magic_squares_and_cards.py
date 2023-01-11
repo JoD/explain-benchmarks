@@ -45,7 +45,7 @@ def magic_squares_and_cards():
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return magic_squares_and_cards()
 
 

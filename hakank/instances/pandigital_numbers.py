@@ -84,6 +84,6 @@ def get_model(seed=0):
     x_len = base-1 + 1-start
     import random
     random.seed(seed)
-    len1 = random.uniform(0, range(1+math.floor(x_len / 3)+1))
-    len2 = random.uniform(0, range(1+math.floor(x_len / 3)+1))
+    len1 = int(round(random.uniform(0, 1+math.floor(x_len / 3)+1)))
+    len2 = int(round(random.uniform(0, 1+math.floor(x_len / 3)+1)))
     return pandigital_numbers(base, start, len1, len2)

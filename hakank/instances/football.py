@@ -138,7 +138,7 @@ def football(budget,num_types,num_players,max_num_players,min_max,costs):
     model_opt.maximize(z)
     return model
 
-def get_model():
+def get_model(seed=0):
     # Multiply money values with 1000
     budget = 30000
     num_players = [3, 8, 10, 5]

@@ -100,7 +100,7 @@ def tsp(distances, use_path=True):
 
   return model
 
-def get_model():
+def get_model(seed=0):
 
   instances = {
     # From Ulf Nilsson: "Transparencies for the course TDDD08 Logic

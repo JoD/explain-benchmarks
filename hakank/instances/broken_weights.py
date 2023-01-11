@@ -69,7 +69,7 @@ def broken_weights(m=40, n=4):
   model += [increasing_strict(weights)]
   return model
 
-def get_model():
+def get_model(seed=0):
   
   m = 40
   n = 4

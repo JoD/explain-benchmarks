@@ -62,5 +62,5 @@ def crypta():
              10 * A + 100 * G + 1000 * E + 10000 * J + 100000 * G]
 
   return model
-def get_model():
+def get_model(seed=0):
   return crypta()

@@ -33,7 +33,7 @@ from itertools import combinations
 
 
 
-def get_model(N):
+def make_model(N):
     # By definition a and b will have the same cardinality:
     matrix = boolvar(shape=(N, N), name="matrix")
 
@@ -67,8 +67,8 @@ def get_model(N):
 
     return matrix, model
 
-def get_model():
+def get_model(seed=0):
     N = 10
-    matrix, model = get_model(N)
+    matrix, model = make_model(N)
     return model
 

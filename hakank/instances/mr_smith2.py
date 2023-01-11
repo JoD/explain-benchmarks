@@ -67,10 +67,5 @@ def mr_smith_v2():
   # (Matt -> (John /\ Mr_Smith))
   model += [Matt.implies(John & Mr_Smith)]
 
-  ss = CPM_ortools(model)
-  num_solutions = ss.solveAll(display=x)
-  #print('num_solutions:', num_solutions)
-
-
-def get_model():
+def get_model(seed=0):
   return mr_smith_v2()

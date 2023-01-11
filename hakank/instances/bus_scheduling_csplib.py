@@ -146,7 +146,7 @@ def get_model(seed=0):
   import random
   random.seed(seed)
   p = random.choice(problems)
-
-  path = "bus_scheduling_csplib/problems/%s"%p
+  base_path = os.path.realpath(__file__).replace('bus_scheduling_csplib.py', '')
+  path = base_path + "bus_scheduling_csplib/problems/%s"%p
   problem = read_problem(path)
   return bus_scheduling(problem)

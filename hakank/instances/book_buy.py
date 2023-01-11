@@ -40,6 +40,6 @@ def book_buy():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return book_buy()
 

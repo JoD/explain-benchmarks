@@ -77,6 +77,6 @@ def place_number_puzzle():
 
     return model
 
-def get_model():
+def get_model(seed=0):
   return place_number_puzzle()
 

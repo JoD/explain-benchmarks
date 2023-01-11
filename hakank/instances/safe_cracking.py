@@ -56,5 +56,5 @@ def safe_cracking():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return safe_cracking()

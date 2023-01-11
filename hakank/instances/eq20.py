@@ -70,5 +70,5 @@ def eq20():
              -68610 * x5 + 58301 * x6 == 876370)
 
   return model
-def get_model():
+def get_model(seed=0):
   return eq20()

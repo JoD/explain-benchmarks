@@ -59,7 +59,7 @@ def devils_word(total, arr):
 #
 # There are 288 different solutions...
 
-def get_model():
+def get_model(seed=0):
   #
   total = 666
   s = "Håkan Kjellerstrand"

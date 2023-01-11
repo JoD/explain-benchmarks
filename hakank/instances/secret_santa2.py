@@ -49,7 +49,7 @@ from cpmpy.solvers import *
 from instances.cpmpy_hakank import *
 
 
-def secret_santa2(singe=0):
+def secret_santa2(single=0):
  
   #
   # The matrix version of earlier rounds.

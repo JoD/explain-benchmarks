@@ -62,6 +62,6 @@ def steiner(n=7,num_sols=1):
   return model
 
 
-def get_model():
+def get_model(seed=0):
   n = 7
   return steiner(n)

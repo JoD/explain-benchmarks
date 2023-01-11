@@ -52,7 +52,7 @@ def stuckey_seesaw():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   stuckey_seesaw()
 
 

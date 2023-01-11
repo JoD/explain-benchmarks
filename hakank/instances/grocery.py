@@ -41,9 +41,5 @@ def grocery():
   # symmetry breaking
   model += [increasing(item)]
 
-  ss = CPM_ortools(model)
-  num_solutions = ss.solveAll(display=item)
-  #print("num_solutions:", num_solutions)
-
-def get_model():
+def get_model(seed=0):
   return grocery()

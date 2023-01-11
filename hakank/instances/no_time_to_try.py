@@ -64,6 +64,6 @@ def no_time_to_try_cp(buttons):
 
   return model
   
-def get_model():
+def get_model(seed=0):
   worn_buttons = [2,6,7]
   return no_time_to_try_cp(worn_buttons)

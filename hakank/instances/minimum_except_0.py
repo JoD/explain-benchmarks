@@ -22,6 +22,6 @@ def minimum_except_0_test(n):
   
   return model
 
-def get_model():
+def get_model(seed=0):
   return minimum_except_0_test(4)
 

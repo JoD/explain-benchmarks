@@ -42,5 +42,5 @@ def huey_dewey_louie():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return huey_dewey_louie()

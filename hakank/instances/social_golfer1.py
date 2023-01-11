@@ -90,7 +90,7 @@ def social_golfer1(weeks=4,groups=3,groupSize=3,num_sols=1):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   # 24 golfers, 6 groups, 4 weeks
   weeks = 4
   groups = 6

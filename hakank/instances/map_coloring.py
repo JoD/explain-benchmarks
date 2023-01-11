@@ -102,7 +102,7 @@ def map_coloring(use_value_precede_chain=False):
 
     return model
                 
-def get_model():
+def get_model(seed=0):
 
   use_value_precede_chain=True
   return map_coloring(use_value_precede_chain)

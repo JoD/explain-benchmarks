@@ -97,7 +97,7 @@ def knapsack_rosetta_code_01(items,max_total_weight):
   model.maximize(total_value)
   return model
 
-def get_model():
+def get_model(seed=0):
   #          Item          Weight   Value
   items = [["map",           9,      150],
           ["compass",       13,      35],

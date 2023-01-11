@@ -113,5 +113,5 @@ def cabling_1():
   model.minimize(final_sum)
   return model
 
-def get_model():
+def get_model(seed=0):
   return cabling_1()

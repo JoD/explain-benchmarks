@@ -108,5 +108,5 @@ def a_round_of_golf():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return a_round_of_golf()

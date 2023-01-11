@@ -68,7 +68,7 @@ def sonet_problem(r,n,demand,capacity_nodes):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   r = 4  # upper bound for amount of rings
   n = 5  # amount of clients
 

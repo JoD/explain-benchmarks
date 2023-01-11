@@ -37,7 +37,7 @@ def pigeon_hole(n=3,m=10):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   
   n = 3
   m = 10

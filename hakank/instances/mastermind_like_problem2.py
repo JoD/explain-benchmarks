@@ -50,7 +50,7 @@ def mastermind_like_problem2(a,correct_position,correct_number):
     return model
 
 
-def get_model():
+def get_model(seed=0):
     a = [[4,7,2,9,1],
         [9,4,6,8,7],
         [3,1,8,7,2],

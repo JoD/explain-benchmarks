@@ -56,6 +56,6 @@ def global_contiguity_test(n=4):
 
   return model
 
-def get_model():           
+def get_model(seed=0):           
   n = 4
   return global_contiguity_test(n)

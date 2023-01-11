@@ -54,6 +54,6 @@ def ski_assignment():
   model += [z == sum([abs(Element(ski_heights,x[i]) - skier_heights[i]) for i in range(num_skiers)] )]
   return model
 
-def get_model():
+def get_model(seed=0):
   return ski_assignment()
 

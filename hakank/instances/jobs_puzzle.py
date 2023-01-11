@@ -91,5 +91,5 @@ def jobs_puzzle():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return jobs_puzzle()

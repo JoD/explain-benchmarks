@@ -61,5 +61,5 @@ def volsay3(obj_value=None):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return volsay3(None)

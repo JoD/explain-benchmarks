@@ -42,5 +42,5 @@ def sliding_sum_test(n=7,seq=4,low=3,up=7):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return sliding_sum_test()

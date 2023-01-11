@@ -47,7 +47,7 @@ def dudeney(n=6):
 
     return model
 
-def get_model():
+def get_model(seed=0):
     n = 6
     return dudeney(n)
 

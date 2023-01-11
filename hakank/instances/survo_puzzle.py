@@ -88,6 +88,8 @@ def survo_puzzle(r=0, c=0, rowsums=[], colsums=[], game=[]):
 
 
 def get_model(seed=0):
+    import os
+    base_path = os.path.realpath(__file__).replace('survo_puzzle.py', '')
     files = [
         "survo_puzzle1.txt",
         "survo_puzzle2.txt",
@@ -98,6 +100,6 @@ def get_model(seed=0):
     ]
     random.seed(seed)
     p = random.choice(files)
-    r, c, rowsums, colsums, game = read_problem(p)
+    r, c, rowsums, colsums, game = read_problem(base_path + p)
     return survo_puzzle(r, c, rowsums, colsums, game)
 

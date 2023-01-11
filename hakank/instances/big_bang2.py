@@ -110,5 +110,5 @@ def big_bang2(minimize_val=False):
 
     return model
         
-def get_model():
+def get_model(seed=0):
     return big_bang2()

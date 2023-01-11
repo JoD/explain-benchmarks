@@ -73,6 +73,6 @@ def among_seq_test(xval=None):
       
     return model
 
-def get_model():
+def get_model(seed=0):
   xval=[9,2,4,5,5,7,2]
   return among_seq_test(xval)

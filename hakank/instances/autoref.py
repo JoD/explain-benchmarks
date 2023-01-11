@@ -64,5 +64,5 @@ def autoref_model(n=27,m=5):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return autoref_model(42,17)

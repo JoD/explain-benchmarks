@@ -58,6 +58,6 @@ def nvalues_test(n):
 
     return model
 
-def get_model():
+def get_model(seed=0):
   n = 4
   return nvalues_test(n)

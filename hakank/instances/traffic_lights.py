@@ -79,5 +79,5 @@ def traffic_lights():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return traffic_lights()

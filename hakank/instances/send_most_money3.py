@@ -40,5 +40,5 @@ def send_most_money3():
 
     return model
 
-def get_model():
+def get_model(seed=0):
   return send_most_money3()

@@ -16,16 +16,16 @@ def generate_unsat_instance(jobs, machines, horizon, seed=0, flow=False):
   for i in range(0,jobs):
     for j in range(0,machines):
       duration[i][j] = random.randint(1,maxtime)
-  # print("duration",duration)
+  # #print("duration",duration)
 
   order = [list(range(0,machines)) for i in range(0,jobs)]
   if not flow:
     for i in range(0,jobs):
       random.shuffle(order[i])
-  # print("order",order)
+  # #print("order",order)
 
   precedence = [[(i,j) for j in order[i]] for i in range(0,jobs)]
-  # print("precedence",precedence)
+  # #print("precedence",precedence)
 
   return {
     "n_jobs": jobs,
@@ -46,16 +46,16 @@ def generate_instance(jobs, machines, horizon, seed=0, flow=False):
   for i in range(0,jobs):
     for j in range(0,machines):
       duration[i][j] = random.randint(1,maxtime)
-  # print("duration",duration)
+  # #print("duration",duration)
 
   order = [list(range(0,machines)) for i in range(0,jobs)]
   if not flow:
     for i in range(0,jobs):
       random.shuffle(order[i])
-  # print("order",order)
+  # #print("order",order)
 
   precedence = [[(i,j) for j in order[i]] for i in range(0,jobs)]
-  # print("precedence",precedence)
+  # #print("precedence",precedence)
 
   return {
     "n_jobs": jobs,
@@ -70,8 +70,8 @@ def generate_instance(jobs, machines, horizon, seed=0, flow=False):
 if __name__ =="__main__":
     
   if len(sys.argv)!=6:
-    print("Usage: python3 jobshop.py #jobs:int #machines:int horizon:int seed:int flow:bool")
-    print("E.g.: python3 jobshop.py 5 4 10 0 False")
+    #print("Usage: python3 jobshop.py #jobs:int #machines:int horizon:int seed:int flow:bool")
+    #print("E.g.: python3 jobshop.py 5 4 10 0 False")
     exit(0)
 
   jobs = int(sys.argv[1])
@@ -83,19 +83,19 @@ if __name__ =="__main__":
   assert(horizon>=jobs)
   seed = int(sys.argv[4])
   flow = sys.argv[5] in ["True","true","1", "yes"]
-  print("Generating job shop instance for",jobs,"jobs,",machines,"machines and",horizon,"time horizon, with seed",seed,"with flow precedence" if flow else "")
+  #print("Generating job shop instance for",jobs,"jobs,",machines,"machines and",horizon,"time horizon, with seed",seed,"with flow precedence" if flow else "")
 
   data = generate_instance(jobs, machines, horizon, seed, flow)
-  # print(json.dumps(data))
+  # #print(json.dumps(data))
 
-  print("{")
+  #print("{")
   for k,v in data.items():
-    print("  \"",k,"\":",sep="",end="");
+    #print("  \"",k,"\":",sep="",end="");
     if isinstance(v,list):
-      print(" [\n",end="")
+      #print(" [\n",end="")
       for el in v:
-        print("    ",el,end=",\n")
-      print("  ],")
+        #print("    ",el,end=",\n")
+      #print("  ],")
     else:
-      print(" ",v,",",sep="")
-  print("}")
+      #print(" ",v,",",sep="")
+  #print("}")

@@ -79,5 +79,5 @@ def monks_and_doors():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   monks_and_doors()

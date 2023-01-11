@@ -52,5 +52,5 @@ def timpkin(married_years_ago_fixed=0):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return timpkin()

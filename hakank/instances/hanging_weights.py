@@ -89,5 +89,5 @@ def hanging_weights():
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return hanging_weights()

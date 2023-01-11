@@ -160,7 +160,7 @@ def queens_diversity(n=10):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 10
   return queens_diversity(n)
   # for n in range(3,9):

@@ -75,5 +75,5 @@ def curious_set_of_integers(orig_problem=True):
               ]
   return model
 
-def get_model():
+def get_model(seed=0):
   return curious_set_of_integers(True)

@@ -21,7 +21,7 @@ from cpmpy import *
 from cpmpy.solvers import *
 from instances.cpmpy_hakank import *
 
-def magic_sequence(n=10, num_sols=0):
+def magic_sequence(n=10):
   #print("n:",n)
   model = Model()
 
@@ -32,14 +32,14 @@ def magic_sequence(n=10, num_sols=0):
     model += [x[i] == sum([x[j] == i for j in range(n)])]
 
   model += [sum(x) == n]
-  model += [sum([x[i]*i for i in range(n)]) == n]  
+  model += [sum([x[i]*i for i in range(n)]) == n]
 
-  model.solveAll(display=x)
+  return model
 
-
-
-def get_model():
-  n = 50
-  return magic_sequence(n, num_sols)
+def get_model(seed=0):
+  import random
+  random.seed(seed)
+  n = int(round(random.uniform(10, 50)))
+  return magic_sequence(n)
 
 

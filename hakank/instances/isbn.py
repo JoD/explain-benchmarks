@@ -83,7 +83,7 @@ def isbn(isbn_init):
 # Let's test with our Picat book
 # [9,7,8,3,3,1,9,2,5,8,8,1,2]
 
-def get_model():
+def get_model(seed=0):
     X = -1 # The unknown
     isbn_test = [9,7,8,3,3,1,9,2,5,8,8,1,X]
     return isbn(isbn_test)

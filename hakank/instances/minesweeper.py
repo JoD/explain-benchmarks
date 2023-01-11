@@ -126,6 +126,8 @@ def read_problem(file):
 
 # file = "minesweeper1.txt"
 def get_model(seed=0):
+    import os
+    base_path = os.path.realpath(__file__).replace('minesweeper.py', '')
     all_files = [
         "minesweeper0.txt", 
         "minesweeper1.txt", 
@@ -145,6 +147,6 @@ def get_model(seed=0):
     import random
     random.seed(seed)
     file = random.choice(all_files)
-    [game, rows, cols] = read_problem(file)
+    [game, rows, cols] = read_problem(base_path+ file)
 
     return minesweeper(game, rows, cols)    

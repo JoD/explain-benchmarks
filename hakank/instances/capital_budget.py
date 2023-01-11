@@ -64,5 +64,5 @@ def capital_budget(cons=None):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return capital_budget(2)

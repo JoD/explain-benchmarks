@@ -31,6 +31,6 @@ def nvalue_test(n=5):
     # constraints
     model = Model(nvalue(m,x))
 
-def get_model():
+def get_model(seed=0):
   n = 5
   return nvalue_test(n)

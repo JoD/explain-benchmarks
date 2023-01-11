@@ -30,6 +30,6 @@ def send_more_money():
     model = Model(constraints)
     return model
 
-def get_model():
+def get_model(seed=0):
   return send_more_money()
 

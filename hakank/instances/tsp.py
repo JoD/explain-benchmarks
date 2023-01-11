@@ -95,7 +95,7 @@ def tsp(n,num_edges,E,c):
   return model
 
 
-def get_model():
+def get_model(seed=0):
   # """
   # These data correspond to the symmetric instance ulysses16 from:
   # Reinelt, G.: TSPLIB - A travelling salesman problem library.

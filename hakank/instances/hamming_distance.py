@@ -52,7 +52,7 @@ def hamming_distance_model(a_given="",n=6):
   
   return model
 
-def get_model():
+def get_model(seed=0):
   a_given = [1,1,1,1,0,0]
   n=len(a_given)
   return hamming_distance_model(a_given,n)

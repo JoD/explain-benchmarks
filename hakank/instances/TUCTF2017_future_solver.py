@@ -69,5 +69,5 @@ def TUCTF2017_future_solver():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return TUCTF2017_future_solver()

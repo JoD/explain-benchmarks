@@ -136,5 +136,5 @@ def building_a_house(min_var="makespan"):
   
   return model
 
-def get_model():
+def get_model(seed=0):
   return building_a_house("z")

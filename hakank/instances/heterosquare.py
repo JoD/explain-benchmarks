@@ -67,6 +67,6 @@ def heterosquare(n=3):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 3
   return heterosquare(n)

@@ -43,7 +43,7 @@ def smugglers_knapsack2(units,values,max_val):
 
     return model 
 
-def get_model():
+def get_model(seed=0):
     units  = [4,3,2]
     values = [15,10,7]
     max_val = 9

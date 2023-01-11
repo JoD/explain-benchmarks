@@ -71,5 +71,5 @@ def set_covering3():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return set_covering3()

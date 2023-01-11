@@ -32,5 +32,5 @@ def least_diff1():
 
     return model
 
-def get_model():
+def get_model(seed=0):
     return least_diff1()

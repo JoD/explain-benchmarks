@@ -41,5 +41,5 @@ def send_most_money2():
     #print("num_solutions:",num_solutions)
     return model
 
-def get_model():
+def get_model(seed=0):
   return send_most_money2()

@@ -32,7 +32,7 @@ def least_diff2():
    ],minimize=res)
    ss = CPM_ortools(model)
 
-def get_model():
+def get_model(seed=0):
     return least_diff2()
 
 

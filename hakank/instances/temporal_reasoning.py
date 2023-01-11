@@ -195,5 +195,5 @@ def temporal_reasoning(opt=True):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return temporal_reasoning(opt=True)

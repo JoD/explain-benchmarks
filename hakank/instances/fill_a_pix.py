@@ -100,6 +100,8 @@ def read_problem(file):
   return [puzzle, n]
 
 def get_model(seed=0):
+  import os
+  base_path = os.path.realpath(__file__).replace('fill_a_pix.py', '')
   import random
   random.seed(seed)
   files = [
@@ -108,5 +110,5 @@ def get_model(seed=0):
     "fill_a_pix3.txt"
   ]
   file = random.choice(files)
-  [puzzle, n] = read_problem(file)
+  [puzzle, n] = read_problem(base_path + file)
   return fill_a_pix(puzzle, n)

@@ -59,6 +59,6 @@ def pair_divides_the_sum(n=4,max_val=100):
     return model
 
 
-def get_model():
+def get_model(seed=0):
     n = 4
     return pair_divides_the_sum(n)

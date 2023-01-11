@@ -101,7 +101,7 @@ def random_instance(n):
 #
 def get_model(seed=0):
     random.seed(seed)
-
-    mrand = random_instance()
-    appointment_scheduling1(mrand,2)
+    n = int(round(random.uniform(10, 50)))
+    mrand = random_instance(n)
+    return appointment_scheduling1(mrand)
 

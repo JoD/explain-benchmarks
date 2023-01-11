@@ -118,5 +118,5 @@ def five_by_five_puzzle():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return five_by_five_puzzle()

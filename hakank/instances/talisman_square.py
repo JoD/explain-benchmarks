@@ -41,7 +41,7 @@ def talisman_square(n=5,k=2):
 
   return model
 
-def get_model():
+def get_model(seed=0):
   n = 4
   k = 6
   return talisman_square(n,k)

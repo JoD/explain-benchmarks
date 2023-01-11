@@ -25,7 +25,7 @@ from cpmpy.solvers import *
 from instances.cpmpy_hakank import *
 
 
-def get_model(v, b, r, k, l):
+def make_model(v, b, r, k, l):
     matrix = boolvar(shape=(v, b),name="matrix")
     model = Model(
         [sum(row) == r for row in matrix],              # every row adds up to r
@@ -40,11 +40,10 @@ def get_model(v, b, r, k, l):
 
 
 def solve(param):
-    matrix, model = get_model(param['v'], param['b'], param['r'], param['k'], param['l'])
+    matrix, model = make_model(param['v'], param['b'], param['r'], param['k'], param['l'])
     model += lex2(matrix)
     return model
 
-
-def get_model():
+def get_model(seed=0):
     default = {'v': 7, 'b': 7, 'r': 3, 'k': 3, 'l': 1, 'num_sols':0}
     return solve(default)

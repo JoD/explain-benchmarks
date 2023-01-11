@@ -41,5 +41,5 @@ def square_root_of_wonderful():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return square_root_of_wonderful()

@@ -147,7 +147,7 @@ def generating_numbers(m=20):
 
     return model
  
-def get_model():
+def get_model(seed=0):
     m = 20
     return generating_numbers(m)
 

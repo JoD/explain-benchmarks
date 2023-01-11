@@ -24,7 +24,7 @@ def update_costs_split_value(sat_solver, cells, unsat_given, weights, ocus_costs
             for col in range(n):
                 all_ij_comb.add((top_left_row+row, top_left_col+col))
 
-    print("\n\n")
+    #print("\n\n")
     for row in range(len(unsat_given)):
         for col in range(len(unsat_given[0])):
             if unsat_given[row, col] != 0:
@@ -34,7 +34,7 @@ def update_costs_split_value(sat_solver, cells, unsat_given, weights, ocus_costs
                 continue
 
             for v in range(1, len(unsat_given)+1):
-                print((row, col, v))
+                #print((row, col, v))
                 if v == uniq_solution[row, col]:
                     continue
 
@@ -62,7 +62,7 @@ def update_costs_split_value(sat_solver, cells, unsat_given, weights, ocus_costs
                 smus_cons = [assum_dict[c] for c in smus]
                 ocus_cost = sum(20 if isinstance(c, cp.AllDifferent) else 1 for c in smus_cons)
                 ocus_costs[(row, col, v)] = (ind, cpm_cons, smus_cons, ocus_cost)
-    print("\n\n")
+    #print("\n\n")
 
 
 def update_costs_split_var(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=None):
@@ -88,7 +88,7 @@ def update_costs_split_var(sat_solver, cells, unsat_given, weights, ocus_costs, 
             for col in range(n):
                 all_ij_comb.add((top_left_row+row, top_left_col+col))
 
-    print("\n\n")
+    #print("\n\n")
     for row in range(len(unsat_given)):
         for col in range(len(unsat_given[0])):
             if unsat_given[row, col] != 0:
@@ -98,7 +98,7 @@ def update_costs_split_var(sat_solver, cells, unsat_given, weights, ocus_costs, 
                 continue
 
             for v in range(1, len(unsat_given)+1):
-                print((row, col, v))
+                #print((row, col, v))
                 if v == uniq_solution[row, col]:
                     continue
 
@@ -126,7 +126,7 @@ def update_costs_split_var(sat_solver, cells, unsat_given, weights, ocus_costs, 
                 smus_cons = [assum_dict[c] for c in smus]
                 ocus_cost = sum(20 if isinstance(c, cp.AllDifferent) else 1 for c in smus_cons)
                 ocus_costs[(row, col, v)] = (ind, cpm_cons, smus_cons, ocus_cost)
-    print("\n\n")
+    #print("\n\n")
 
 def update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=None):
     from CSPExplain.subset.weighted import WeightedOCUS
@@ -151,7 +151,7 @@ def update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum
             for col in range(n):
                 all_ij_comb.add((top_left_row+row, top_left_col+col))
 
-    print("\n\n")
+    #print("\n\n")
     for row in range(len(unsat_given)):
         for col in range(len(unsat_given[0])):
             if unsat_given[row, col] != 0:
@@ -161,7 +161,7 @@ def update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum
                 continue
 
             for v in range(1, len(unsat_given)+1):
-                print((row, col, v))
+                #print((row, col, v))
                 if v == uniq_solution[row, col]:
                     continue
 
@@ -189,7 +189,7 @@ def update_costs(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum
                 smus_cons = [assum_dict[c] for c in smus]
                 ocus_cost = sum(20 if isinstance(c, cp.AllDifferent) else 1 for c in smus_cons)
                 ocus_costs[(row, col, v)] = (ind, cpm_cons, smus_cons, ocus_cost)
-    print("\n\n")
+    #print("\n\n")
 
 def ocus_conflict(given, uniq_solution, num_errors=1):
     from CSPExplain.examples.sudoku import build_all_sudoku_constraints
@@ -404,4 +404,4 @@ def model_sat_sudoku(dim=9):
   return given
 
 if __name__ == "__main__":
-  print(model_unsat_sudoku(total_errors=5, total_extra_givens=5))
+  #print(model_unsat_sudoku(total_errors=5, total_extra_givens=5))

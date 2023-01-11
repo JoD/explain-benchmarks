@@ -84,5 +84,5 @@ def post_office_problem2():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return post_office_problem2()

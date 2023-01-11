@@ -56,5 +56,5 @@ def initial_pair_queue():
     )
   return model
 
-def get_model():
+def get_model(seed=0):
   return initial_pair_queue()

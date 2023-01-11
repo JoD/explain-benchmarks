@@ -83,5 +83,5 @@ def remarkable_sequence():
   return model
 
 
-def get_model():
+def get_model(seed=0):
   return remarkable_sequence()

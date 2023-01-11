@@ -50,6 +50,6 @@ def bowls_and_oranges():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return bowls_and_oranges()
 

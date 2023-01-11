@@ -98,5 +98,5 @@ def lecture_series():
 
   return model
 
-def get_model():
+def get_model(seed=0):
   return lecture_series()

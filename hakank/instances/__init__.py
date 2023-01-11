@@ -174,44 +174,10 @@ from instances import minesweeper
 from instances import minimum_except_0
 from instances import miss_manners
 from instances import monks_and_doors
-from instances import mr_smith
 from instances import mr_smith2
 from instances import music_men
 from instances import nadel
 from instances import no_time_to_try
-from instances import nonogram_bear
-from instances import nonogram_car
-from instances import nonogram_castle
-from instances import nonogram_crocodile
-from instances import nonogram_difficult
-from instances import nonogram_dragonfly
-from instances import nonogram_gondola
-from instances import nonogram_hard
-from instances import nonogram_hen
-from instances import nonogram_lambda
-from instances import nonogram_n4
-from instances import nonogram_n6
-from instances import nonogram_nonunique
-from instances import nonogram_p199
-from instances import nonogram_p200
-from instances import nonogram_pbn_9_dom
-from instances import nonogram_pbn_bucks
-from instances import nonogram_pbn_cat
-from instances import nonogram_pbn_dancer
-from instances import nonogram_pbn_edge
-from instances import nonogram_pbn_forever
-from instances import nonogram_pbn_karate
-from instances import nonogram_pbn_knot
-from instances import nonogram_pbn_light
-from instances import nonogram_pbn_merka
-from instances import nonogram_pbn_mum
-from instances import nonogram_pbn_petro
-from instances import nonogram_pbn_skid
-from instances import nonogram_pbn_swing
-from instances import nonogram_ps
-from instances import nonogram_regular
-from instances import nonogram_soccer_player
-from instances import nonogram_t2
 from instances import nontransitive_dice
 from instances import nqueens_all_solutions
 from instances import number_lock
@@ -288,11 +254,6 @@ from instances import square_root_of_wonderful
 from instances import stable_marriage
 from instances import steiner
 from instances import strimko2
-from instances import strimko2_002
-from instances import strimko2_067
-from instances import strimko2_068
-from instances import strimko2_069
-from instances import strimko2_070
 from instances import stuckey_seesaw
 from instances import subset_sum
 from instances import survo_puzzle
@@ -496,7 +457,6 @@ ALL_HAKANK_MODELS = {
     "minimum_except_0": minimum_except_0.get_model,
     "miss_manners": miss_manners.get_model,
     "monks_and_doors": monks_and_doors.get_model,
-    "mr_smith": mr_smith.get_model,
     "mr_smith2": mr_smith2.get_model,
     "music_men": music_men.get_model,
     "nadel": nadel.get_model,

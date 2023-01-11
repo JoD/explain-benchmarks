@@ -76,6 +76,8 @@ def read_problem(file):
 
 
 def get_model(seed=0):
+    import os
+    base_path = os.path.realpath(__file__).replace('discrete_tomography.py', '')
     all_files = [
         "discrete_tomography1.txt",
         "discrete_tomography2.txt",
@@ -85,5 +87,5 @@ def get_model(seed=0):
     import random
     random.seed(seed)
     file = random.choice(all_files)
-    [row_sums, col_sums] = read_problem(file)
+    [row_sums, col_sums] = read_problem(base_path + file)
     discrete_tomography(row_sums, col_sums)    
