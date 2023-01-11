@@ -404,4 +404,4 @@ def model_sat_sudoku(dim=9):
   return given
 
 if __name__ == "__main__":
-  #print(model_unsat_sudoku(total_errors=5, total_extra_givens=5))
+  print(model_unsat_sudoku(total_errors=5, total_extra_givens=5))
