@@ -26,20 +26,21 @@ def gen_all_instances(n=5, seed=0, p=0.05, output_dir=None, verbose=True):
     ### OUTPUT
     today = datetime.datetime.now().strftime("%Y_%m_%d")
     if output_dir:
-        p = Path(output_dir)
-        if not p.exists():
-            p.mkdir(parents=True)
+        output_dir_path = Path(output_dir)
+        if not output_dir_path.exists():
+            output_dir_path.mkdir(parents=True)
     ### Model selection!
     models = []
+    ### getting as many models as possible even though there are errors in the 
+    ### unsat transfomration
     all_models = list(ALL_HAKANK_MODELS)
-    selected_models = sorted(random.sample(all_models, k=min(n, len(ALL_HAKANK_MODELS))), key=lambda x: str(x))
-    print(selected_models)
+    random.shuffle(all_models)
 
-    for count, model_name in enumerate(selected_models):
+    for count, model_name in enumerate(all_models):
         if count >= n:
             break
         if verbose:
-            print(f"Model [{count}/{len(selected_models)}]:\t", model_name)
+            print(f"Model [{count}/{n}]:\t", model_name)
         try:
             ## generate a model
             model = ALL_HAKANK_MODELS[model_name](seed=seed)
@@ -50,10 +51,11 @@ def gen_all_instances(n=5, seed=0, p=0.05, output_dir=None, verbose=True):
 
             ## Write output to file
             if output_dir:
-                model_path = p / (model_name + today + ".pkl")
+                model_path = output_dir_path / (model_name + today + ".pkl")
                 model_output = str(model_path)
                 unsat_model.to_file(model_output)
             models.append(unsat_model)
+            count+=1
         except :
             if verbose:
                 traceback.print_exception(*sys.exc_info())

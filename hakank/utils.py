@@ -36,10 +36,6 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
     all_constraints = flattened_model.constraints
     model_variables = get_variables_model(flattened_model)
     k=max(1, int(round(p*len(all_constraints))))
-
-    # has_globals = any(isinstance(c, cp.expressions.globalconstraints.GlobalConstraint) for c in all_constraints)
-
-    print("# constraints changed at every iteration=\t", k)
     steps = 0
 
     while(cp.Model(all_constraints).solve() and steps < max_steps):
@@ -53,19 +49,13 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
         remaining_constraints = set(all_constraints) - selected_constraints
 
         for i, c in enumerate(selected_constraints):
-
-            print(f"changing constraints [{i+1}/{len(selected_constraints)}]:")
-            print("\t", c)
             if isinstance(c, cp.expressions.globalconstraints.GlobalConstraint): 
-                print("\t\t GLOBAL")
                 swapped_constraint = swap_variables(c, model_variables, k=k, p=p)
             # elif 
             else:
                 swapping_fun = random.choice(list(swapping_functions))
                 swapped_constraint = swapping_functions[swapping_fun](c, model_variables, p=p)
-                print("\t\t", swapping_fun)
 
-            print("\t", swapped_constraint)
             remaining_constraints.add(swapped_constraint)
 
         all_constraints = list(remaining_constraints)
