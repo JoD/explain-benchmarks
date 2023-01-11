@@ -83,6 +83,9 @@ def main(args):
         verbose=verbose)
 
 if __name__== "__main__":
+    #### EXAMPLE USAGE!
+    #### python3 unsat_models.py --num 300 -p 0.05 -i pickled/ -d pickled_unsat/
+
     parser = argparse.ArgumentParser(
         prog = 'HakankUnsatModels',
         description = 'Generates a specified number of randomized unsat models ',
