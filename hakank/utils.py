@@ -208,6 +208,9 @@ def model_sudoku(dim=9):
   return model
 
 
+
+
+
 if __name__=="__main__":
     sudoku_model = model_sudoku(9)
     make_unsat_model(sudoku_model, p=0.05)
