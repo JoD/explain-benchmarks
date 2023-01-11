@@ -15,14 +15,9 @@ import sys
 import traceback
 from pathlib import Path
 import cpmpy as cp
-from hakank.utils import make_unsat_model
+from utils import make_unsat_model
 
-
-from instances import ALL_HAKANK_MODELS
-
-
-
-def make_unsat_instances(n=5, seed=0, p=0.05, input_dir="pickled/", output_dir=None, verbose=True):
+def make_unsat_instances(n=5, seed=0, p=0.05, input_dir="pickled/", output_dir="unsat_pickled/", verbose=True):
     random.seed(seed)
     ### OUTPUT
     today = datetime.datetime.now().strftime("%Y_%m_%d")
@@ -33,11 +28,16 @@ def make_unsat_instances(n=5, seed=0, p=0.05, input_dir="pickled/", output_dir=N
 
     path_input_dir = Path(input_dir)
     assert path_input_dir.exists(), "Path does not exist"
-    
-    all_unsat_models = []
 
-    for count, path_file in enumerate(path_input_dir.iterdir()):
-        if not path_file.is_file() or path_file.suffix == ".pkl":
+    all_unsat_models = []
+    all_files = sorted(
+        [path_file for path_file in path_input_dir.iterdir() if (path_file.is_file() and path_file.suffix == ".pkl")],
+        key=lambda x: x.stat().st_size
+    )
+
+    for count, path_file in enumerate(all_files):
+        print("path_file=", path_file, n)
+        if not path_file.is_file() or path_file.suffix != ".pkl":
             continue
         if count >=n:
             break
