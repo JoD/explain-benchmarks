@@ -58,11 +58,11 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
             print("\t", c)
             if isinstance(c, cp.expressions.globalconstraints.GlobalConstraint): 
                 print("\t\t GLOBAL")
-                swapped_constraint = swap_variables(c, model_variables, k)
+                swapped_constraint = swap_variables(c, model_variables, k=k, p=p)
             # elif 
             else:
                 swapping_fun = random.choice(list(swapping_functions))
-                swapped_constraint = swapping_functions[swapping_fun](c, model_variables)
+                swapped_constraint = swapping_functions[swapping_fun](c, model_variables, p=p)
                 print("\t\t", swapping_fun)
 
             print("\t", swapped_constraint)
@@ -74,14 +74,14 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
 
     return cp.Model(all_constraints)
 
-def shuffle_variables(expr, variables):
+def shuffle_variables(expr, variables, p=0.5):
     if expr.name in ["==", "!="]:
-        return swap_operator(expr, variables)
+        return swap_operator(expr, variables, p)
     if len(expr.args) > 1:
         random.shuffle(expr.args)
     return expr
 
-def swap_variables(expr, variables, k=1):
+def swap_variables(expr, variables, k=1, p=0.5):
     expr_vars = get_variables(expr)
     if expr.name == "wsum":
         return replace_wsum(expr, variables)
@@ -101,7 +101,7 @@ def swap_variables(expr, variables, k=1):
             expr.args[i] = vars_to_replace[id]
         ## not handling expressions
         else:
-            expr.args[i] = swap_variables(expr.args[i], variables, k)
+            expr.args[i] = swap_variables(expr.args[i], variables, k=k, p=p)
 
     return expr
 
