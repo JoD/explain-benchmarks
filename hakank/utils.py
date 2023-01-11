@@ -65,6 +65,8 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
     return cp.Model(all_constraints)
 
 def shuffle_variables(expr, variables, p=0.5):
+    if not isinstance(expr, (cp.expressions.core.Comparison, cp.expressions.core.Operator)):
+        return expr
     if expr.name in ["==", "!="]:
         return swap_operator(expr, variables, p)
     if len(expr.args) > 1:
@@ -72,11 +74,14 @@ def shuffle_variables(expr, variables, p=0.5):
     return expr
 
 def swap_variables(expr, variables, k=1, p=0.5):
+    if not isinstance(expr, (cp.expressions.core.Comparison, cp.expressions.core.Operator)):
+        return expr
+
     expr_vars = get_variables(expr)
     if expr.name == "wsum":
         return replace_wsum(expr, variables)
 
-    idx_to_replace = random.sample(list(range(len(expr.args))), k)
+    idx_to_replace = random.sample(list(range(len(expr.args))), min(k, len(expr.args)))
 
     for id, i in enumerate(idx_to_replace):
         ## get variables of same type
@@ -120,6 +125,8 @@ def swap_operator(expr, variables, p=0.5):
         new_expr = replace_wsum(expr, variables)
     elif is_math_op(expr):
         new_expr = replace_math_op(expr)
+    elif isinstance(expr, cp.variables.NegBoolView):
+        return ~expr
     elif isinstance(expr, cp.variables._BoolVarImpl):
         return expr
     else:
