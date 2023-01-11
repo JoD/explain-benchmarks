@@ -148,57 +148,7 @@ def nonogram_regular(rows, row_rule_len, row_rules, cols, col_rule_len, col_rule
                              [board[i, j] for i in range(rows)])]
 
 
-    def print_sol():
-      for i in range(rows):
-        row = [board_flat[i*cols+ j].value() - 1 for j in range(cols)]
-        row_pres = []
-        for j in row:
-          if j == 1:
-            row_pres.append('#')
-          else:
-            row_pres.append(' ')
-        #print('  ', ''.join(row_pres))
-
-      #print(flush=True)        
-      #print('  ', '-' * cols)
-      
-
-    #print("Solve")
-    if minizinc_solver == None:
-      #print("Solver: ortools from cpmpy")
-      # all solution solving, with blocking clauses
-      ss = CPM_ortools(model)    
-
-      # Flags to experiment with
-      if num_sols == 1:
-        ss.ort_solver.parameters.num_search_workers = 8 # Don't work together with SearchForAllSolutions
-      # ss.ort_solver.parameters.search_branching = ort.PORTFOLIO_SEARCH
-      # ss.ort_solver.parameters.cp_model_presolve = False
-      ss.ort_solver.parameters.linearization_level = 0
-      ss.ort_solver.parameters.cp_model_probing_level = 0
-      
-      # ort_status = ss.ort_solver.SearchForAllSolutions(ss.ort_model, cb)
-
-      num_solutions = ss.solveAll(solution_limit=num_sols,display=print_sol)
-      #print("Nr solutions:", num_solutions)
-      #print("Num conflicts:", ss.ort_solver.NumConflicts())
-      #print("NumBranches:", ss.ort_solver.NumBranches())
-      #print("WallTime:", ss.ort_solver.WallTime())
-
-    else:
-      #print("MiniZinc solver:", minizinc_solver)
-      ss = CPM_minizinc(model,minizinc_solver)
-      num_solutions = 0
-      flags = {'verbose':True}
-      # -f (free_search) is not supported by all solvers!
-      if minizinc_solver in ["chuffed","or_tools","picat_sat","gecode"]:
-        #print("Using -f")
-        flags['free_search'] = True
-      time1 = time.time()              
-      num_solutions = ss.solveAll(solution_limit=num_sols,display=print_sol)
-      time2 = time.time()
-      #print("Nr solutions:", num_solutions)
-      #print(f"WallTime: {time2-time1}")
+    return model
 
 #
 # Default problem
