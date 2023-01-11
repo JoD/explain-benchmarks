@@ -123,7 +123,7 @@ def swap_operator(expr, variables, p=0.5):
     elif isinstance(expr, cp.variables._BoolVarImpl):
         return expr
     else:
-        print("expr not handled!", expr.name, expr.args)
+        # print("expr not handled!", expr.name, expr.args)
         new_expr = expr
     return new_expr
 
