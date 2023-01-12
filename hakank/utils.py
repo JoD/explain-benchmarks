@@ -49,6 +49,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
         remaining_constraints = set(all_constraints) - selected_constraints
 
         for i, c in enumerate(selected_constraints):
+            # print("constraint\n\t-input:", c)
             if isinstance(c, cp.expressions.globalconstraints.GlobalConstraint): 
                 swapped_constraint = swap_variables(c, model_variables, k=k, p=p)
             # elif 
@@ -58,6 +59,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
 
             remaining_constraints.add(swapped_constraint)
 
+            # print("constraint\n\t-swapped:", swapped_constraint)
         all_constraints = list(remaining_constraints)
 
         steps += 1
@@ -67,7 +69,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
 def shuffle_variables(expr, variables, p=0.5):
     if not isinstance(expr, (cp.expressions.core.Comparison, cp.expressions.core.Operator)):
         return expr
-    if expr.name in ["==", "!="]:
+    if expr.name in ["==", "!=", "wsum"]:
         return swap_operator(expr, variables, p)
     if len(expr.args) > 1:
         random.shuffle(expr.args)
@@ -92,8 +94,10 @@ def swap_variables(expr, variables, k=1, p=0.5):
         ### replace variables
         elif isinstance(expr.args[i], cp.variables._NumVarImpl):
             vars_to_select = [v for v in variables if type(v) == type(expr.args[i])]
-            vars_to_replace = random.sample(vars_to_select, k)
-            expr.args[i] = vars_to_replace[id]
+            if len(vars_to_select) == 0:
+                continue
+            var_to_replace = random.choice(vars_to_select)
+            expr.args[i] = var_to_replace
         ## not handling expressions
         else:
             expr.args[i] = swap_variables(expr.args[i], variables, k=k, p=p)
@@ -110,7 +114,9 @@ def replace_math_op(expr):
     return expr
 
 def swap_operator(expr, variables, p=0.5):
-    if not isinstance(expr, cp.variables._NumVarImpl) and any(isinstance(arg, (cp.expressions.core.Comparison, cp.expressions.core.Operator)) for arg in expr.args) and random.random() < p:
+    if not isinstance(expr, cp.expressions.core.Expression):
+        return expr
+    if not isinstance(expr, (cp.variables._NumVarImpl)) and any(isinstance(arg, (cp.expressions.core.Comparison, cp.expressions.core.Operator)) for arg in expr.args) and random.random() < p:
         idx = random.randint(0, len(expr.args) - 1)
         expr.args[idx] = swap_operator(expr.args[idx], variables, p)
         return expr
