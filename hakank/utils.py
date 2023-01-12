@@ -20,8 +20,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
         _type_: _description_
     """
     ## Ensure it's a flattened model, easier iteration over constraints
-    if not model.solve(time_limit=60):
-        raise TimeoutError()
+    
     flattened_model = flatten_model(model)
 
     ## Introduce mistakes non-trivially
@@ -51,6 +50,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
         remaining_constraints = set(all_constraints) - selected_constraints
 
         for i, c in enumerate(selected_constraints):
+            # print("constraint\n\t-input:", c)
             if isinstance(c, cp.expressions.globalconstraints.GlobalConstraint): 
                 swapped_constraint = swap_variables(c, model_variables, k=k, p=p)
             # elif 
@@ -60,6 +60,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
 
             remaining_constraints.add(swapped_constraint)
 
+            # print("constraint\n\t-swapped:", swapped_constraint)
         all_constraints = list(remaining_constraints)
 
         steps += 1
@@ -67,18 +68,23 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
     return cp.Model(all_constraints)
 
 def shuffle_variables(expr, variables, p=0.5):
-    if expr.name in ["==", "!="]:
+    if not isinstance(expr, (cp.expressions.core.Comparison, cp.expressions.core.Operator)):
+        return expr
+    if expr.name in ["==", "!=", "wsum"]:
         return swap_operator(expr, variables, p)
     if len(expr.args) > 1:
         random.shuffle(expr.args)
     return expr
 
 def swap_variables(expr, variables, k=1, p=0.5):
+    if not isinstance(expr, (cp.expressions.core.Comparison, cp.expressions.core.Operator)):
+        return expr
+
     expr_vars = get_variables(expr)
     if expr.name == "wsum":
         return replace_wsum(expr, variables)
 
-    idx_to_replace = random.sample(list(range(len(expr.args))), k)
+    idx_to_replace = random.sample(list(range(len(expr.args))), min(k, len(expr.args)))
 
     for id, i in enumerate(idx_to_replace):
         ## get variables of same type
@@ -89,8 +95,10 @@ def swap_variables(expr, variables, k=1, p=0.5):
         ### replace variables
         elif isinstance(expr.args[i], cp.variables._NumVarImpl):
             vars_to_select = [v for v in variables if type(v) == type(expr.args[i])]
-            vars_to_replace = random.sample(vars_to_select, k)
-            expr.args[i] = vars_to_replace[id]
+            if len(vars_to_select) == 0:
+                continue
+            var_to_replace = random.choice(vars_to_select)
+            expr.args[i] = var_to_replace
         ## not handling expressions
         else:
             expr.args[i] = swap_variables(expr.args[i], variables, k=k, p=p)
@@ -107,10 +115,9 @@ def replace_math_op(expr):
     return expr
 
 def swap_operator(expr, variables, p=0.5):
-    if not is_num(expr) and \
-        not isinstance(expr, cp.variables._NumVarImpl) and \
-            any(isinstance(arg, (cp.expressions.core.Comparison, cp.expressions.core.Operator)) for arg in expr.args) \
-            and random.random() < p:
+    if not isinstance(expr, cp.expressions.core.Expression):
+        return expr
+    if not isinstance(expr, (cp.variables._NumVarImpl)) and any(isinstance(arg, (cp.expressions.core.Comparison, cp.expressions.core.Operator)) for arg in expr.args) and random.random() < p:
         idx = random.randint(0, len(expr.args) - 1)
         expr.args[idx] = swap_operator(expr.args[idx], variables, p)
         return expr
@@ -125,6 +132,8 @@ def swap_operator(expr, variables, p=0.5):
         new_expr = replace_wsum(expr, variables)
     elif is_math_op(expr):
         new_expr = replace_math_op(expr)
+    elif isinstance(expr, cp.variables.NegBoolView):
+        return ~expr
     elif isinstance(expr, cp.variables._BoolVarImpl):
         return expr
     else:
@@ -211,6 +220,9 @@ def model_sudoku(dim=9):
     num_taken += 1
 
   return model
+
+
+
 
 
 if __name__=="__main__":
