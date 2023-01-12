@@ -15,10 +15,25 @@ import sys
 import traceback
 from pathlib import Path
 import cpmpy as cp
-from hakank.utils import make_unsat_model
+from .utils import make_unsat_model
+import os
 
 
-from instances import ALL_HAKANK_MODELS
+# from instances import ALL_HAKANK_MODELS
+
+def generate_instance(seed=0, p=0.05, max_steps=5, limit_constraints=float('inf'), dirname="pickled/"):
+
+    random.seed(seed)
+
+    fname = random.choice(sorted(os.listdir(dirname)))
+    model = cp.Model.from_file(os.path.join(dirname,fname))
+
+    while len(model.constraints) > limit_constraints:
+        fname = random.choice(sorted(os.listdir(dirname)))
+        model = cp.Model.from_file(os.path.join(dirname, fname))
+
+    return {"model": make_unsat_model(model, p=p,max_steps=max_steps)}
+
 
 
 def gen_all_instances(n=5, seed=0, p=0.05, output_dir=None, verbose=True):
