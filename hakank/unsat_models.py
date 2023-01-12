@@ -48,7 +48,7 @@ def make_unsat_instances(n=5, seed=0, p=0.05, input_dir="pickled/", output_dir="
         try:
             model = cp.Model().from_file(str(path_file))
             assert isinstance(model, cp.Model), f"type({model}) be an CPMpy Model"
-            
+
             start_time = time()
             if not model.solve(time_limit=TIMELIMIT):
                 elapsed_time = time() - start_time
