@@ -16,6 +16,9 @@ import traceback
 from pathlib import Path
 import cpmpy as cp
 from utils import make_unsat_model
+from time import time
+
+TIMELIMIT = 60
 
 def make_unsat_instances(n=5, seed=0, p=0.05, input_dir="pickled/", output_dir="unsat_pickled/", verbose=True):
     random.seed(seed)
@@ -45,6 +48,16 @@ def make_unsat_instances(n=5, seed=0, p=0.05, input_dir="pickled/", output_dir="
         try:
             model = cp.Model().from_file(str(path_file))
             assert isinstance(model, cp.Model), f"type({model}) be an CPMpy Model"
+            
+            start_time = time()
+            if not model.solve(time_limit=TIMELIMIT):
+                elapsed_time = time() - start_time
+                if elapsed_time < TIMELIMIT * 0.95:
+                    print("Model is UNSAT!")
+                    all_unsat_models.append(unsat_model)
+                    continue
+                else:
+                    raise TimeoutError()
 
             ## make model unsat with certain probability
             unsat_model = make_unsat_model(model, p)

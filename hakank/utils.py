@@ -18,8 +18,7 @@ def make_unsat_model(model: cp.Model, p=0.05, max_steps=5):
         _type_: _description_
     """
     ## Ensure it's a flattened model, easier iteration over constraints
-    if not model.solve(time_limit=60):
-        raise TimeoutError()
+    
     flattened_model = flatten_model(model)
 
     ## Introduce mistakes non-trivially
