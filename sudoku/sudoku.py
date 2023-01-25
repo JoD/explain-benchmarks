@@ -385,7 +385,7 @@ def model_sat_sudoku(dim=9, blocked=None):
           model += cp.AllDifferent(puzzle[i:i+n, j:j+n]) # python's indexing
   if blocked:
       for blocked_sol in blocked:
-          model += ~all((puzzle == blocked_sol).flatten().tolist())
+          model += ~all(c for c in (puzzle == blocked_sol).flatten())
 
   nsol = model.solveAll(solution_limit=2)
   uniq_solution = puzzle.value()
