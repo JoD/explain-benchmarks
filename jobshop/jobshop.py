@@ -88,14 +88,14 @@ if __name__ =="__main__":
   data = generate_instance(jobs, machines, horizon, seed, flow)
   # #print(json.dumps(data))
 
-  #print("{")
-  for k,v in data.items():
-    #print("  \"",k,"\":",sep="",end="");
-    if isinstance(v,list):
-      #print(" [\n",end="")
-      for el in v:
-        #print("    ",el,end=",\n")
-      #print("  ],")
-    else:
-      #print(" ",v,",",sep="")
-  #print("}")
+  # #print("{")
+  # for k,v in data.items():
+  #   #print("  \"",k,"\":",sep="",end="");
+  #   if isinstance(v,list):
+  #     #print(" [\n",end="")
+  #     for el in v:
+  #       #print("    ",el,end=",\n")
+  #     #print("  ],")
+  #   else:
+  #     #print(" ",v,",",sep="")
+  # #print("}")
