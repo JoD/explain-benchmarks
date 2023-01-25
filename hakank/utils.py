@@ -2,6 +2,8 @@ import cpmpy as cp
 import copy
 from cpmpy.transformations.get_variables import get_variables_model, get_variables
 from cpmpy.transformations.flatten_model import flatten_model
+
+from cpmpy.expressions.utils import is_num
 import random
 import numpy as np
 
@@ -224,5 +226,7 @@ def model_sudoku(dim=9):
 
 
 if __name__=="__main__":
-    sudoku_model = model_sudoku(9)
-    make_unsat_model(sudoku_model, p=0.05)
+    sudoku_model = model_sudoku(4)
+
+    random.seed(1)
+    unsat = make_unsat_model(sudoku_model, p=0.05)
