@@ -1,5 +1,6 @@
 import cpmpy as cp
 import numpy as np
+import csv
 
 def update_costs_split_value(sat_solver, cells, unsat_given, weights, ocus_costs, base_assum_dict, uniq_solution, assigned_cell=None):
     from CSPExplain.subset.weighted import WeightedOCUS
@@ -357,7 +358,7 @@ def model_unsat_sudoku(dim=9, total_errors=1, total_extra_givens=1, seed=0):
 
     return {"givens" :given, "sat": sat_sudoku}
 
-def model_sat_sudoku(dim=9):
+def model_sat_sudoku(dim=9, blocked=None):
   """Generates a Sudoku puzzle for given dimensions, defaults to a 9x9 Sudoku
   puzzle.
 
@@ -382,6 +383,9 @@ def model_sat_sudoku(dim=9):
   for i in range(0,dim, n):
       for j in range(0,dim, n):
           model += cp.AllDifferent(puzzle[i:i+n, j:j+n]) # python's indexing
+  if blocked:
+      for blocked_sol in blocked:
+          model += ~all((puzzle == blocked_sol).flatten().tolist())
 
   nsol = model.solveAll(solution_limit=2)
   uniq_solution = puzzle.value()
@@ -402,6 +406,36 @@ def model_sat_sudoku(dim=9):
     num_taken += 1
 
   return given
+
+def load_csv_instance(fname):
+    all_instances = []
+    with open(fname) as csv_file:
+        csv_reader = csv.DictReader(csv_file, delimiter=',')
+        for row in csv_reader:
+            dim = int(len(row["Puzzle"]) ** (0.5))
+            all_instances.append(np.array(
+                [[int(row["Puzzle"][i * 9 + j]) for j in range(dim)] for i in range(dim)]
+            ))
+    return all_instances
+
+def load_sudoku_csv_instances():
+    """Load CSV instances in np.array format
+
+    Returns:
+        _type_: _description_
+    """
+    import os
+    base_path = os.path.realpath(__file__).replace('sudoku.py', '')
+    all_files = [
+        "easy_sudokus.csv", 
+        "simple_sudokus.csv", 
+        "intermediate_sudokus.csv", 
+        "expert_sudokus.csv", 
+    ]
+    all_instances = []
+    for fname in all_files:
+        all_instances += load_csv_instance(base_path + fname)
+    return np.array(all_instances)
 
 if __name__ == "__main__":
   print(model_unsat_sudoku(total_errors=5, total_extra_givens=5))
