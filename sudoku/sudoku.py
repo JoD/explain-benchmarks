@@ -397,6 +397,14 @@ def make_sudoku_unsat(givens, seed):
             return {"givens": givens}
 
 
+def load_and_make_unsat_sudoku(fname, seed=0):
+    random.seed(seed)
+
+    inst = load_csv_instance(fname)
+    return make_sudoku_unsat(random.choice(inst), seed)
+
+
+
 
 def model_sat_sudoku(dim=9, blocked=None):
   """Generates a Sudoku puzzle for given dimensions, defaults to a 9x9 Sudoku
