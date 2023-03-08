@@ -2,6 +2,7 @@ import random
 from time import time
 
 import cpmpy as cp
+print(cp.__path__)
 
 from cpmpy.transformations.get_variables import get_variables
 from cpmpy.expressions.core import Operator, Comparison
@@ -62,7 +63,7 @@ def change_constraint_with_prob(cpm_expr, p_change=0.1, should_continue=lambda:F
         # sample action
         if not should_continue(time_limit - (time() - start_time)):
             return cpm_expr
-        action = random.choice([swap_variables, replace_constraint])
+        action = random.choice([swap_variables, replace_constraint, modify_constant])
         if random.random() <= p_change:
             cpm_expr = action(cpm_expr)
     except RuleNotApplicableError:
@@ -112,6 +113,8 @@ def swap_variables(cpm_expr, var1=None, var2=None):
 
 
 def replace_constraint(cpm_expr):
+    if isinstance(cpm_expr, NegBoolView):
+        return remove_negation(cpm_expr)
     if isinstance(cpm_expr, Operator):
         return replace_operator(cpm_expr)
     if isinstance(cpm_expr, Comparison):
@@ -121,20 +124,12 @@ def replace_constraint(cpm_expr):
     return cpm_expr
 
 
-def change_constant(cpm_expr):
+def modify_constant(cpm_expr):
     """
         Changing constants in place.
         Negates numeric constants
     """
-    if isinstance(cpm_expr, Operator) and cpm_expr.name == "wsum":
-        w, args = cpm_expr.args
-        for i, arg in enumerate(args):
-            args[i] = change_constant(arg)
-        return Operator(name=cpm_expr.name, arg_list=[w, args])
-    elif isinstance(cpm_expr, (Operator, Comparison)):
-        for i, arg in enumerate(cpm_expr.args): 
-            cpm_expr.args[i] = change_constant(arg)
-    elif is_bool(cpm_expr):
+    if is_bool(cpm_expr):
         cpm_expr = not cpm_expr
     elif is_num(cpm_expr):
         if random.choice([True, False]):
@@ -148,18 +143,7 @@ def remove_negation(cpm_expr):
     """
         Remove boolvar negations in place
     """
-
-    if isinstance(cpm_expr, Operator) and cpm_expr.name == "wsum":
-        w, args = cpm_expr.args
-        for i, arg in enumerate(args):
-            args[i] = remove_negation(arg)
-        return Operator(name=cpm_expr.name, arg_list=[w, args])
-    elif isinstance(cpm_expr, (Operator, Comparison)):
-        for i, arg in enumerate(cpm_expr.args): 
-            cpm_expr.args[i] = remove_negation(arg)
-    elif isinstance(cpm_expr, NegBoolView):
-        cpm_expr = ~cpm_expr
-    return cpm_expr
+    return ~cpm_expr
 
 
 def replace_operator(cpm_expr):
@@ -169,9 +153,6 @@ def replace_operator(cpm_expr):
     """
     if not isinstance(cpm_expr, Operator):
         raise RuleNotApplicableError()
-
-    if cpm_expr.is_bool() and "~" in cpm_expr:
-        cpm_expr = remove_negation(cpm_expr)
 
     arity, is_bool = Operator.allowed[cpm_expr.name]
     if cpm_expr.name == "wsum":
