@@ -5,9 +5,9 @@ import cpmpy as cp
 
 from cpmpy.transformations.get_variables import get_variables
 from cpmpy.expressions.core import Operator, Comparison
-from cpmpy.expressions.variables import _BoolVarImpl
+from cpmpy.expressions.variables import _BoolVarImpl, NegBoolView
 from cpmpy.expressions.globalconstraints import *
-from cpmpy.expressions.utils import is_any_list, flatlist
+from cpmpy.expressions.utils import is_any_list, flatlist, is_bool, is_int, is_num
 from cpmpy.solvers.solver_interface import ExitStatus
 
 TIME_LIMIT = 60
@@ -78,7 +78,6 @@ def change_constraint_with_prob(cpm_expr, p_change=0.1, should_continue=lambda:F
     return cpm_expr
 
 
-
 def swap_variables(cpm_expr, var1=None, var2=None):
     """
         Swaps two variables in constraint
@@ -121,6 +120,48 @@ def replace_constraint(cpm_expr):
         return replace_global(cpm_expr)
     return cpm_expr
 
+
+def change_constant(cpm_expr):
+    """
+        Changing constants in place.
+        Negates numeric constants
+    """
+    if isinstance(cpm_expr, Operator) and cpm_expr.name == "wsum":
+        w, args = cpm_expr.args
+        for i, arg in enumerate(args):
+            args[i] = change_constant(arg)
+        return Operator(name=cpm_expr.name, arg_list=[w, args])
+    elif isinstance(cpm_expr, (Operator, Comparison)):
+        for i, arg in enumerate(cpm_expr.args): 
+            cpm_expr.args[i] = change_constant(arg)
+    elif is_bool(cpm_expr):
+        cpm_expr = not cpm_expr
+    elif is_num(cpm_expr):
+        if random.choice([True, False]):
+            cpm_expr = -cpm_expr
+        else:
+            cpm_expr = cpm_expr + 1
+    return cpm_expr
+
+
+def remove_negation(cpm_expr):
+    """
+        Remove boolvar negations in place
+    """
+
+    if isinstance(cpm_expr, Operator) and cpm_expr.name == "wsum":
+        w, args = cpm_expr.args
+        for i, arg in enumerate(args):
+            args[i] = remove_negation(arg)
+        return Operator(name=cpm_expr.name, arg_list=[w, args])
+    elif isinstance(cpm_expr, (Operator, Comparison)):
+        for i, arg in enumerate(cpm_expr.args): 
+            cpm_expr.args[i] = remove_negation(arg)
+    elif isinstance(cpm_expr, NegBoolView):
+        cpm_expr = ~cpm_expr
+    return cpm_expr
+
+
 def replace_operator(cpm_expr):
     """
         Replace (numerical) operator with another one
@@ -128,6 +169,11 @@ def replace_operator(cpm_expr):
     """
     if not isinstance(cpm_expr, Operator):
         raise RuleNotApplicableError()
+
+    if cpm_expr.is_bool() and "~" in cpm_expr:
+        print("Removing negation:", cpm_expr)
+        cpm_expr = remove_negation(cpm_expr)
+        print("Removing negation:", cpm_expr)
 
     arity, is_bool = Operator.allowed[cpm_expr.name]
     if cpm_expr.name == "wsum":
@@ -220,6 +266,8 @@ if __name__ == "__main__":
 
     dirname = "pickled"
     outdir = "pickled_unsat_new"
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
     fnames = os.listdir(dirname)
     already_done = set(os.listdir(outdir))
 
@@ -240,7 +288,13 @@ if __name__ == "__main__":
 
     for fname in sorted(set(fnames) - already_done):
         model = cp.Model.from_file(os.path.join(dirname, fname))
+        print("model=", model)
         cons = flatlist(model.constraints)
+        for i, con in enumerate(cons):
+            print(f"\n [{i}]\t{con=}")
+            for v in get_variables(con):
+                print(f"\t{v}:{type(v)} [{v.lb} {v.ub}]")
+            cp.Model(con).solve()
         if len(cons) <= 1000:
             print(f"Making model {fname} unsat. Model has {len(cons)} constraints")
         else:
@@ -248,6 +302,7 @@ if __name__ == "__main__":
             continue
 
         try:
+            print("unsat_cons:", cons)
             unsat_cons = make_model_unsat(cons, p_change=0.1,seed=0)
             unsat_model = cp.Model(unsat_cons)
             assert unsat_model.solve() is False
