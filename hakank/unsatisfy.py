@@ -288,13 +288,7 @@ if __name__ == "__main__":
 
     for fname in sorted(set(fnames) - already_done):
         model = cp.Model.from_file(os.path.join(dirname, fname))
-        print("model=", model)
         cons = flatlist(model.constraints)
-        for i, con in enumerate(cons):
-            print(f"\n [{i}]\t{con=}")
-            for v in get_variables(con):
-                print(f"\t{v}:{type(v)} [{v.lb} {v.ub}]")
-            cp.Model(con).solve()
         if len(cons) <= 1000:
             print(f"Making model {fname} unsat. Model has {len(cons)} constraints")
         else:
@@ -302,7 +296,6 @@ if __name__ == "__main__":
             continue
 
         try:
-            print("unsat_cons:", cons)
             unsat_cons = make_model_unsat(cons, p_change=0.1,seed=0)
             unsat_model = cp.Model(unsat_cons)
             assert unsat_model.solve() is False
