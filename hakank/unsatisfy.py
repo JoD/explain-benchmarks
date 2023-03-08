@@ -171,9 +171,7 @@ def replace_operator(cpm_expr):
         raise RuleNotApplicableError()
 
     if cpm_expr.is_bool() and "~" in cpm_expr:
-        print("Removing negation:", cpm_expr)
         cpm_expr = remove_negation(cpm_expr)
-        print("Removing negation:", cpm_expr)
 
     arity, is_bool = Operator.allowed[cpm_expr.name]
     if cpm_expr.name == "wsum":
