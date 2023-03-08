@@ -22,7 +22,9 @@ def make_model_unsat(constraints, p_change=0.1, seed=0):
     it = 0
     while callback(TIME_LIMIT - (time() - start_time)):
         print(f"\rAt iteration {it}", end="\t\t\t")
-        for i, cons in enumerate(list(constraints)):
+        icons = [(i,c) for i,c in enumerate(constraints)]
+        random.shuffle(icons)
+        for i, cons in icons:
             if time() - start_time >= TIME_LIMIT:
                 print()
                 raise TimeoutError("Make model unsat timed out")
@@ -70,7 +72,9 @@ def change_constraint_with_prob(cpm_expr, p_change=0.1, should_continue=lambda:F
         pass
 
     if hasattr(cpm_expr, "args"):
-        for i, arg in enumerate(cpm_expr.args):
+        iargs = [(i,e) for i,e in enumerate(cpm_expr.args)]
+        random.shuffle(iargs)
+        for i, arg in iargs:
             if time() - start_time >= TIME_LIMIT:
                 raise TimeoutError("change constraint timed out")
             cpm_expr.args[i] = change_constraint_with_prob(arg, p_change, should_continue, time_limit=time_limit - (time() - start_time))
