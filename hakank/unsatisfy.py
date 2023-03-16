@@ -1,3 +1,4 @@
+import copy
 import random
 from time import time
 
@@ -56,10 +57,10 @@ def callback_factory(constraints):
     return callback
 
 
-def change_constraint_with_prob(cpm_expr, p_change=0.1, should_continue=lambda:False, time_limit=60):
+def change_constraint_with_prob(cpm_expr_orig, p_change=0.1, should_continue=lambda:False, time_limit=60):
 
     start_time = time()
-
+    cpm_expr = copy.deepcopy(cpm_expr_orig)
     try:
         # sample action
         if not should_continue(time_limit - (time() - start_time)):
@@ -78,6 +79,10 @@ def change_constraint_with_prob(cpm_expr, p_change=0.1, should_continue=lambda:F
             if time() - start_time >= TIME_LIMIT:
                 raise TimeoutError("change constraint timed out")
             cpm_expr.args[i] = change_constraint_with_prob(arg, p_change, should_continue, time_limit=time_limit - (time() - start_time))
+
+    if str(cpm_expr) != str(cpm_expr_orig) and isinstance(cpm_expr, Expression) and cpm_expr.is_bool() and not cp.Model(cpm_expr).solve():
+        # we do not want a trivial unsatisfiable constraints as this does not make for good explanation sequences
+        return cpm_expr_orig
 
     return cpm_expr
 
@@ -208,19 +213,6 @@ class RuleNotApplicableError(Exception):
 
 if __name__ == "__main__":
     import os
-    # from cpmpy import *
-    #
-    # x,y,z = intvar(0,10, shape=3)
-    # a,b = boolvar(shape=2)
-    #
-    # model = Model(
-    #     [AllDifferent(x,y,z),
-    #      a.implies(x + y <= z),
-    #      b.implies(x + y >= z),
-    #      ~a | b]
-    # )
-    #
-    #
 
     dirname = "pickled"
     outdir = "pickled_unsat_new"
