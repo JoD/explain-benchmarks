@@ -3,12 +3,13 @@ import random
 from time import time
 
 import cpmpy as cp
+print(cp.__path__)
 
 from cpmpy.transformations.get_variables import get_variables
 from cpmpy.expressions.core import Operator, Comparison
-from cpmpy.expressions.variables import _BoolVarImpl
+from cpmpy.expressions.variables import _BoolVarImpl, NegBoolView
 from cpmpy.expressions.globalconstraints import *
-from cpmpy.expressions.utils import is_any_list, flatlist
+from cpmpy.expressions.utils import is_any_list, flatlist, is_bool, is_int, is_num
 from cpmpy.solvers.solver_interface import ExitStatus
 
 TIME_LIMIT = 60
@@ -65,7 +66,7 @@ def change_constraint_with_prob(cpm_expr_orig, p_change=0.1, should_continue=lam
         # sample action
         if not should_continue(time_limit - (time() - start_time)):
             return cpm_expr
-        action = random.choice([swap_variables, replace_constraint])
+        action = random.choice([swap_variables, replace_constraint, modify_constant])
         if random.random() <= p_change:
             cpm_expr = action(cpm_expr)
     except RuleNotApplicableError:
@@ -85,7 +86,6 @@ def change_constraint_with_prob(cpm_expr_orig, p_change=0.1, should_continue=lam
         return cpm_expr_orig
 
     return cpm_expr
-
 
 
 def swap_variables(cpm_expr, var1=None, var2=None):
@@ -122,6 +122,8 @@ def swap_variables(cpm_expr, var1=None, var2=None):
 
 
 def replace_constraint(cpm_expr):
+    if isinstance(cpm_expr, NegBoolView):
+        return remove_negation(cpm_expr)
     if isinstance(cpm_expr, Operator):
         return replace_operator(cpm_expr)
     if isinstance(cpm_expr, Comparison):
@@ -129,6 +131,29 @@ def replace_constraint(cpm_expr):
     if isinstance(cpm_expr, GlobalConstraint):
         return replace_global(cpm_expr)
     return cpm_expr
+
+
+def modify_constant(cpm_expr):
+    """
+        Changing constants in place.
+        Negates numeric constants
+    """
+    if is_bool(cpm_expr):
+        cpm_expr = not cpm_expr
+    elif is_num(cpm_expr):
+        if random.choice([True, False]):
+            cpm_expr = -cpm_expr
+        else:
+            cpm_expr = cpm_expr + 1
+    return cpm_expr
+
+
+def remove_negation(cpm_expr):
+    """
+        Remove boolvar negations in place
+    """
+    return ~cpm_expr
+
 
 def replace_operator(cpm_expr):
     """
@@ -216,6 +241,8 @@ if __name__ == "__main__":
 
     dirname = "pickled"
     outdir = "pickled_unsat_new"
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
     fnames = os.listdir(dirname)
     already_done = set(os.listdir(outdir))
 
