@@ -9,7 +9,7 @@ from cpmpy.transformations.get_variables import get_variables
 from cpmpy.expressions.core import Operator, Comparison
 from cpmpy.expressions.variables import _BoolVarImpl, NegBoolView
 from cpmpy.expressions.globalconstraints import *
-from cpmpy.expressions.utils import is_any_list, flatlist, is_bool, is_int, is_num
+from cpmpy.expressions.utils import is_any_list, flatlist, is_bool, is_int, is_num, eval_comparison
 from cpmpy.solvers.solver_interface import ExitStatus
 
 TIME_LIMIT = 60
@@ -195,7 +195,8 @@ def replace_comparison(cpm_expr):
 
     options = [n for n in Comparison.allowed if n != cpm_expr.name]
     new_name = random.choice(options)
-    return Comparison(new_name, *cpm_expr.args)
+    lhs, rhs = cpm_expr.args
+    return eval_comparison(new_name, lhs, rhs)
 
 def replace_global(cpm_expr):
     """
@@ -249,14 +250,20 @@ if __name__ == "__main__":
     skip = { # all of these timed out
         "a_17b2023_01_11.pkl",
         "a_2012_CMO_problem2023_01_11.pkl",
+        "averbach_1_22023_01_11.pkl",
+        "bananas2023_01_11.pkl",
+        "building_a_house2023_01_11.pkl",
         "bus_scheduling_csplib2023_01_11.pkl",
         "candies2023_01_11.pkl",
+        "calvin_puzzle2023_01_11.pkl",
         "clique2023_01_11.pkl",
         "equal_sized_groups2023_01_11.pkl",
         "euler12023_01_11.pkl",
+        "frog_circle2023_01_11.pkl",
         "generating_numbers22023_01_11.pkl",
         "knights_path2023_01_11.pkl",
-        "langford2023_01_11.pkl"
+        "langford2023_01_11.pkl",
+        "polydivisible_numbers2023_01_11.pkl"
     }
 
     already_done |= skip
@@ -264,10 +271,10 @@ if __name__ == "__main__":
     for fname in sorted(set(fnames) - already_done):
         model = cp.Model.from_file(os.path.join(dirname, fname))
         cons = flatlist(model.constraints)
-        if len(cons) <= 1000:
+        if 1 < len(cons) <= 1000:
             print(f"Making model {fname} unsat. Model has {len(cons)} constraints")
         else:
-            print(f"Skipping model {fname} as it has too many constraints ({len(cons)})")
+            print(f"Skipping model {fname} as it has too many or too little constraints ({len(cons)})")
             continue
 
         try:
