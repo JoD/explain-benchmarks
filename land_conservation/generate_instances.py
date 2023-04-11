@@ -2,7 +2,7 @@
 import random
 import numpy as np
 from math import floor, ceil
-def generate_land_conservation_problem(n_species, width, height, budget_factor, seed=0):
+def generate_land_conservation_problem(n_species, width, height, budget_factor, n_forests=2, n_cities=2, n_lakes=3, seed=0):
 
     random.seed(seed)
     np.random.seed(seed)
@@ -12,11 +12,11 @@ def generate_land_conservation_problem(n_species, width, height, budget_factor, 
     threshold = [0.3, 0.5, 0.7]
 
     max_radius_city = 4
-    n_cities = random.randrange(1,3)
+    # n_cities = random.randrange(1,3)
     max_radius_lake = 3
-    n_lakes= random.randrange(1, 4)
+    # n_lakes= random.randrange(1, 4)
     max_radius_forest = 7
-    n_forests = random.randrange(5, 7)
+    # n_forests = random.randrange(5, 7)
 
 
     grid_species = []
